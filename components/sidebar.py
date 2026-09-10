@@ -7,17 +7,11 @@ def render_sidebar():
 
     with st.sidebar:
 
-        # =====================================================
         # HEADER
-        # =====================================================
-
         st.markdown(
             """
             <div class="sidebar-header">
-                <div class="sidebar-title">
-                    PROJECT CONTROLS HUB
-                </div>
-
+                <div class="sidebar-title">PROJECT CONTROLS HUB</div>
                 <div class="sidebar-subtitle">
                     Design Management Intelligence
                 </div>
@@ -26,10 +20,7 @@ def render_sidebar():
             unsafe_allow_html=True,
         )
 
-        # =====================================================
         # FRAMEWORKS
-        # =====================================================
-
         st.markdown(
             '<div class="sidebar-section-title">FRAMEWORKS</div>',
             unsafe_allow_html=True,
@@ -49,10 +40,8 @@ def render_sidebar():
                     and st.session_state.selected_asset == asset
                 )
 
-                label = f"●  {asset}" if selected else f"○  {asset}"
-
                 st.button(
-                    label,
+                    f"{'●' if selected else '○'}  {asset}",
                     key=f"asset_{framework}_{asset}",
                     use_container_width=True,
                     type="primary" if selected else "secondary",
@@ -60,10 +49,7 @@ def render_sidebar():
                     args=(framework, asset),
                 )
 
-        # =====================================================
         # NAVIGATION
-        # =====================================================
-
         st.markdown(
             '<div class="sidebar-section-title">NAVIGATION</div>',
             unsafe_allow_html=True,
@@ -95,28 +81,15 @@ def render_sidebar():
                 args=(item,),
             )
 
-        # =====================================================
         # PROFILE
-        # =====================================================
-
         st.markdown(
             """
             <div class="sidebar-profile">
-
-                <div class="profile-avatar">
-                    JS
-                </div>
-
+                <div class="profile-avatar">JS</div>
                 <div class="profile-details">
-                    <div class="profile-name">
-                        John Smith
-                    </div>
-
-                    <div class="profile-role">
-                        Design Manager
-                    </div>
+                    <div class="profile-name">John Smith</div>
+                    <div class="profile-role">Design Manager</div>
                 </div>
-
             </div>
             """,
             unsafe_allow_html=True,
