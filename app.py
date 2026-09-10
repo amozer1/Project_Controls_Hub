@@ -3,46 +3,51 @@ import streamlit as st
 from components.sidebar import render_sidebar
 
 
+# =========================================================
+# PAGE CONFIGURATION
+# =========================================================
+
 st.set_page_config(
-    page_title="Project Controls Hub",
-    page_icon="◈",
+    page_title="PROJECT CONTROLS HUB",
+    page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
 
-# ---------------------------------------------------------
-# LOAD STYLES
-# ---------------------------------------------------------
+# =========================================================
+# SESSION STATE
+# =========================================================
 
-with open("assets/styles.css", "r", encoding="utf-8") as f:
-    st.markdown(
-        f"<style>{f.read()}</style>",
-        unsafe_allow_html=True,
-    )
+if "selected_framework" not in st.session_state:
+    st.session_state.selected_framework = "UU DD&B Framework"
+
+if "selected_asset" not in st.session_state:
+    st.session_state.selected_asset = "Ferry PS"
+
+if "selected_navigation" not in st.session_state:
+    st.session_state.selected_navigation = "Overview"
 
 
-# ---------------------------------------------------------
+# =========================================================
 # SIDEBAR
-# ---------------------------------------------------------
+# =========================================================
 
-sidebar = render_sidebar()
+render_sidebar()
 
 
-# ---------------------------------------------------------
+# =========================================================
 # TEMPORARY MAIN CONTENT
-# ---------------------------------------------------------
+# =========================================================
 
-st.title("Project Controls Hub")
-
-st.write(
-    f"Framework: **{sidebar['framework']}**"
+st.title(
+    st.session_state.selected_navigation
 )
 
 st.write(
-    f"Project: **{sidebar['project']}**"
+    f"Framework: **{st.session_state.selected_framework}**"
 )
 
 st.write(
-    f"Page: **{sidebar['page']}**"
+    f"Asset: **{st.session_state.selected_asset}**"
 )
