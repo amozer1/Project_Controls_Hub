@@ -3,7 +3,7 @@ from config.frameworks import FRAMEWORKS
 
 
 # ==========================================================
-# NAVIGATION
+# NAVIGATION ITEMS
 # ==========================================================
 
 NAVIGATION_ITEMS = [
@@ -16,6 +16,20 @@ NAVIGATION_ITEMS = [
     ("Reports", "▥"),
     ("Settings", "⚙"),
 ]
+
+
+# ==========================================================
+# SESSION DEFAULTS
+# ==========================================================
+
+if "selected_framework" not in st.session_state:
+    st.session_state.selected_framework = "UU DD&B Framework"
+
+if "selected_asset" not in st.session_state:
+    st.session_state.selected_asset = "Ferry PS"
+
+if "selected_navigation" not in st.session_state:
+    st.session_state.selected_navigation = "Overview"
 
 
 # ==========================================================
@@ -40,387 +54,171 @@ def load_sidebar_css():
 
     st.markdown(
         """
-<style>
+        <style>
 
-/* ==========================================================
-SIDEBAR
-========================================================== */
+        /* --------------------------------------------------
+        Sidebar Width
+        -------------------------------------------------- */
 
-section[data-testid="stSidebar"]{
-    background:
-        radial-gradient(
-            circle at top left,
-            #12357f 0%,
-            #08255a 35%,
-            #041336 100%
-        ) !important;
+        section[data-testid="stSidebar"]{
+            min-width:320px !important;
+            max-width:320px !important;
 
-    border-right:1px solid rgba(255,255,255,.08);
-}
+            background:
+                radial-gradient(
+                    circle at top left,
+                    #10367d 0%,
+                    #09255b 35%,
+                    #041335 100%
+                ) !important;
 
-section[data-testid="stSidebar"] > div{
-    padding:18px 14px !important;
-}
+            border-right:1px solid rgba(255,255,255,.08);
+        }
 
+        section[data-testid="stSidebar"] > div{
+            padding:18px 14px !important;
+        }
 
-/* ==========================================================
-CARDS
-========================================================== */
+        /* --------------------------------------------------
+        Cards
+        -------------------------------------------------- */
 
-section[data-testid="stSidebar"]
-[data-testid="stVerticalBlockBorderWrapper"]{
+        section[data-testid="stSidebar"]
+        [data-testid="stVerticalBlockBorderWrapper"]{
 
-    background:rgba(11,35,70,.72) !important;
+            background:rgba(10,29,73,.76) !important;
 
-    backdrop-filter:blur(12px);
+            border:1px solid rgba(103,147,255,.12) !important;
 
-    border:1px solid rgba(123,160,255,.12) !important;
+            border-radius:14px !important;
 
-    border-radius:14px !important;
+            padding:14px !important;
 
-    padding:14px !important;
+            margin-bottom:14px !important;
 
-    margin-bottom:14px !important;
+            backdrop-filter:blur(12px);
 
-    box-shadow:
-        inset 0 1px rgba(255,255,255,.03),
-        0 10px 25px rgba(0,0,0,.25);
-}
+            box-shadow:
+                inset 0 1px rgba(255,255,255,.03),
+                0 8px 22px rgba(0,0,0,.25);
+        }
 
+        /* --------------------------------------------------
+        Hub
+        -------------------------------------------------- */
 
-/* ==========================================================
-PROJECT HUB
-========================================================== */
+        .hub-header{
+            display:flex;
+            align-items:center;
+            gap:14px;
+        }
 
-.hub{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
+        .hub-logo{
+            width:52px;
+            height:52px;
 
-.hub-logo{
-    width:48px;
-    height:48px;
+            border-radius:14px;
 
-    border-radius:12px;
+            background:
+                linear-gradient(
+                    135deg,
+                    #27db89,
+                    #2869ff
+                );
 
-    background:
-       linear-gradient(
-         135deg,
-         #2be68d,
-         #286dff
-       );
+            display:flex;
+            align-items:center;
+            justify-content:center;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+            font-size:24px;
+            color:white;
+        }
 
-    color:white;
-    font-size:22px;
-    font-weight:700;
-}
+        .hub-title{
+            color:white;
 
-.hub-title{
-    color:white;
-    font-size:20px;
-    line-height:20px;
-    font-weight:700;
-}
+            font-size:20px;
 
-.hub-subtitle{
-    color:#98b0dc;
-    font-size:11px;
-    margin-top:4px;
-}
+            font-weight:700;
 
+            line-height:22px;
 
-/* ==========================================================
-SECTION TITLES
-========================================================== */
+            margin:0;
+        }
 
-.section-title{
-    color:#c8d6ff;
+        .hub-subtitle{
+            color:#93add9;
 
-    font-size:11px;
+            font-size:11px;
 
-    text-transform:uppercase;
+            margin-top:4px;
+        }
 
-    letter-spacing:1px;
+        /* --------------------------------------------------
+        Section Labels
+        -------------------------------------------------- */
 
-    font-weight:700;
+        .section-title{
+            color:#bdd0f8;
 
-    margin-bottom:10px;
-}
+            font-size:11px;
 
+            font-weight:700;
 
-/* ==========================================================
-BUTTONS
-========================================================== */
+            text-transform:uppercase;
 
-.stButton{
-    width:100%;
-}
+            letter-spacing:1px;
 
-.stButton > button{
+            margin-bottom:10px;
+        }
 
-    width:100% !important;
+        /* --------------------------------------------------
+        Buttons
+        -------------------------------------------------- */
 
-    min-height:38px !important;
+        .stButton{
+            width:100%;
+        }
 
-    border-radius:10px !important;
+        .stButton > button{
 
-    text-align:left !important;
+            width:100% !important;
 
-    display:flex !important;
+            min-height:40px !important;
 
-    justify-content:flex-start !important;
+            border-radius:10px !important;
 
-    font-size:13px !important;
+            display:flex !important;
 
-    transition:.2s;
-}
+            justify-content:flex-start !important;
 
-.stButton > button[kind="secondary"]{
+            align-items:center !important;
 
-    background:transparent !important;
+            padding-left:14px !important;
 
-    border:1px solid transparent !important;
+            text-align:left !important;
 
-    color:#d6e0f2 !important;
-}
+            font-size:13px !important;
 
-.stButton > button[kind="secondary"]:hover{
+            transition:.2s;
+        }
 
-    background:rgba(255,255,255,.05) !important;
+        .stButton > button p{
+            text-align:left !important;
+            width:100%;
+        }
 
-    border-color:rgba(255,255,255,.08) !important;
+        .stButton > button[kind="secondary"]{
 
-    color:white !important;
-}
+            background:transparent !important;
 
-.stButton > button[kind="primary"]{
+            border:1px solid transparent !important;
 
-    background:
-        linear-gradient(
-            90deg,
-            rgba(47,99,255,.55),
-            rgba(47,99,255,.18)
-        ) !important;
+            color:#d3def4 !important;
+        }
 
-    border:1px solid rgba(91,148,255,.4) !important;
+        .stButton > button[kind="secondary"]:hover{
 
-    color:white !important;
+            background:rgba(255,255,255,.05) !important;
 
-    font-weight:600 !important;
-}
-
-
-/* ==========================================================
-USER CARD
-========================================================== */
-
-.avatar{
-
-    width:42px;
-    height:42px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #275bff,
-            #0f266e
-        );
-
-    border-radius:50%;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    color:white;
-    font-weight:700;
-}
-
-.user-name{
-    color:white;
-    font-size:13px;
-    font-weight:600;
-}
-
-.user-role{
-    color:#8fa8c9;
-    font-size:11px;
-}
-
-
-/* ==========================================================
-REMOVE BUTTON SHADOWS
-========================================================== */
-
-button{
-    box-shadow:none !important;
-}
-
-</style>
-        """,
-        unsafe_allow_html=True,
-    )
-
-
-# ==========================================================
-# SIDEBAR
-# ==========================================================
-
-def render_sidebar():
-
-    load_sidebar_css()
-
-    with st.sidebar:
-
-        # ======================================================
-        # PROJECT HUB
-        # ======================================================
-
-        with st.container(border=True):
-
-            st.markdown(
-                """
-                <div class="hub">
-                    <div class="hub-logo">◉</div>
-
-                    <div>
-                        <div class="hub-title">
-                            PROJECT<br>
-                            CONTROLS HUB
-                        </div>
-
-                        <div class="hub-subtitle">
-                            Design Management Intelligence
-                        </div>
-                    </div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-
-        # ======================================================
-        # ENTERPRISE FRAMEWORK
-        # ======================================================
-
-        with st.container(border=True):
-
-            st.markdown(
-                '<div class="section-title">UU Enterprise Framework</div>',
-                unsafe_allow_html=True,
-            )
-
-            for asset in FRAMEWORKS["UU Enterprise Framework"]:
-
-                selected = (
-                    st.session_state.get("selected_framework")
-                    == "UU Enterprise Framework"
-                    and
-                    st.session_state.get("selected_asset")
-                    == asset
-                )
-
-                st.button(
-                    f"{'●' if selected else '○'}  {asset}",
-                    key=f"ent_{asset}",
-                    use_container_width=True,
-                    type="primary" if selected else "secondary",
-                    on_click=_select_asset,
-                    args=("UU Enterprise Framework", asset),
-                )
-
-        # ======================================================
-        # DDB FRAMEWORK
-        # ======================================================
-
-        with st.container(border=True):
-
-            st.markdown(
-                '<div class="section-title">UU DD&B Framework</div>',
-                unsafe_allow_html=True,
-            )
-
-            for asset in FRAMEWORKS["UU DD&B Framework"]:
-
-                selected = (
-                    st.session_state.get("selected_framework")
-                    == "UU DD&B Framework"
-                    and
-                    st.session_state.get("selected_asset")
-                    == asset
-                )
-
-                st.button(
-                    f"{'●' if selected else '○'}  {asset}",
-                    key=f"ddb_{asset}",
-                    use_container_width=True,
-                    type="primary" if selected else "secondary",
-                    on_click=_select_asset,
-                    args=("UU DD&B Framework", asset),
-                )
-
-        # ======================================================
-        # NAVIGATION
-        # ======================================================
-
-        with st.container(border=True):
-
-            st.markdown(
-                '<div class="section-title">Navigation</div>',
-                unsafe_allow_html=True,
-            )
-
-            for item, icon in NAVIGATION_ITEMS:
-
-                selected = (
-                    st.session_state.get(
-                        "selected_navigation",
-                        "Overview"
-                    )
-                    == item
-                )
-
-                st.button(
-                    f"{icon}  {item}",
-                    key=f"nav_{item}",
-                    use_container_width=True,
-                    type="primary" if selected else "secondary",
-                    on_click=_select_navigation,
-                    args=(item,),
-                )
-
-        # ======================================================
-        # USER PROFILE
-        # ======================================================
-
-        with st.container(border=True):
-
-            c1, c2 = st.columns([1, 4])
-
-            with c1:
-                st.markdown(
-                    """
-                    <div class="avatar">
-                        JS
-                    </div>
-                    """,
-                    unsafe_allow_html=True,
-                )
-
-            with c2:
-                st.markdown(
-                    """
-                    <div class="user-name">
-                        John Smith
-                    </div>
-
-                    <div class="user-role">
-                        Design Manager
-                    </div>
-                    """,
-                    unsafe_allow_html=True,
-                )
+            border-color:rgba(255,255,255,.08) !important;
