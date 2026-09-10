@@ -1,0 +1,11 @@
+matplotlib
+streamlit
+pandas
+numpy
+plotly
+openpyxl
+scikit-learn
+xgboost
+nltk
+wordcloud
+streamlit-autorefresh
