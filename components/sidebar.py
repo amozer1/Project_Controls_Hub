@@ -1,21 +1,23 @@
 import streamlit as st
 
 from config.frameworks import FRAMEWORKS
-from config.navigation import NAVIGATION
 
 
 def render_sidebar():
 
     with st.sidebar:
 
-        # =========================================================
+        # =====================================================
         # HEADER
-        # =========================================================
+        # =====================================================
 
         st.markdown(
             """
             <div class="sidebar-header">
-                <div class="sidebar-title">PROJECT CONTROLS HUB</div>
+                <div class="sidebar-title">
+                    PROJECT CONTROLS HUB
+                </div>
+
                 <div class="sidebar-subtitle">
                     Design Management Intelligence
                 </div>
@@ -24,14 +26,9 @@ def render_sidebar():
             unsafe_allow_html=True,
         )
 
-        st.markdown(
-            '<div class="sidebar-divider"></div>',
-            unsafe_allow_html=True,
-        )
-
-        # =========================================================
+        # =====================================================
         # FRAMEWORKS
-        # =========================================================
+        # =====================================================
 
         st.markdown(
             '<div class="sidebar-section-title">FRAMEWORKS</div>',
@@ -54,81 +51,85 @@ def render_sidebar():
 
                 label = f"●  {asset}" if selected else f"○  {asset}"
 
-                if st.button(
+                st.button(
                     label,
                     key=f"asset_{framework}_{asset}",
                     use_container_width=True,
                     type="primary" if selected else "secondary",
-                ):
-                    st.session_state.selected_framework = framework
-                    st.session_state.selected_asset = asset
-                    st.session_state.selected_navigation = "Overview"
-                    st.rerun()
+                    on_click=_select_asset,
+                    args=(framework, asset),
+                )
 
-        st.markdown(
-            '<div class="sidebar-divider"></div>',
-            unsafe_allow_html=True,
-        )
-
-        # =========================================================
+        # =====================================================
         # NAVIGATION
-        # =========================================================
+        # =====================================================
 
         st.markdown(
             '<div class="sidebar-section-title">NAVIGATION</div>',
             unsafe_allow_html=True,
         )
 
-        icons = {
-            "Overview": "▣",
-            "Programme": "◫",
-            "Delivery & Programme": "◈",
-            "Communications": "◌",
-            "Documents": "▤",
-            "Intelligence": "⚡",
-            "Reports": "▥",
-            "Settings": "⚙",
-        }
+        navigation_items = [
+            ("▣", "Overview"),
+            ("◫", "Programme"),
+            ("◈", "Delivery & Programme"),
+            ("◌", "Communications"),
+            ("▤", "Documents"),
+            ("⚡", "Intelligence"),
+            ("▥", "Reports"),
+            ("⚙", "Settings"),
+        ]
 
-        for item in NAVIGATION:
+        for icon, item in navigation_items:
 
             selected = (
                 st.session_state.selected_navigation == item
             )
 
-            icon = icons.get(item, "▣")
-            label = f"{icon}  {item}"
-
-            if st.button(
-                label,
+            st.button(
+                f"{icon}  {item}",
                 key=f"navigation_{item}",
                 use_container_width=True,
                 type="primary" if selected else "secondary",
-            ):
-                st.session_state.selected_navigation = item
-                st.rerun()
+                on_click=_select_navigation,
+                args=(item,),
+            )
 
-        # =========================================================
+        # =====================================================
         # PROFILE
-        # =========================================================
-
-        st.markdown(
-            '<div class="sidebar-profile-spacer"></div>',
-            unsafe_allow_html=True,
-        )
+        # =====================================================
 
         st.markdown(
             """
             <div class="sidebar-profile">
 
-                <div class="profile-avatar">JS</div>
+                <div class="profile-avatar">
+                    JS
+                </div>
 
                 <div class="profile-details">
-                    <div class="profile-name">John Smith</div>
-                    <div class="profile-role">Design Manager</div>
+                    <div class="profile-name">
+                        John Smith
+                    </div>
+
+                    <div class="profile-role">
+                        Design Manager
+                    </div>
                 </div>
 
             </div>
             """,
             unsafe_allow_html=True,
         )
+
+
+def _select_asset(framework, asset):
+
+    st.session_state.selected_framework = framework
+    st.session_state.selected_asset = asset
+    st.session_state.selected_navigation = "Overview"
+
+
+def _select_navigation(item):
+
+    st.session_state.selected_navigation = item

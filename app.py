@@ -1,4 +1,5 @@
 import streamlit as st
+from pathlib import Path
 
 from components.sidebar import render_sidebar
 
@@ -12,6 +13,18 @@ st.set_page_config(
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded",
+)
+
+
+# =========================================================
+# LOAD CSS
+# =========================================================
+
+css_path = Path("assets/styles.css")
+
+st.markdown(
+    f"<style>{css_path.read_text()}</style>",
+    unsafe_allow_html=True,
 )
 
 
@@ -34,20 +47,3 @@ if "selected_navigation" not in st.session_state:
 # =========================================================
 
 render_sidebar()
-
-
-# =========================================================
-# TEMPORARY MAIN CONTENT
-# =========================================================
-
-st.title(
-    st.session_state.selected_navigation
-)
-
-st.write(
-    f"Framework: **{st.session_state.selected_framework}**"
-)
-
-st.write(
-    f"Asset: **{st.session_state.selected_asset}**"
-)
