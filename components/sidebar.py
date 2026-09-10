@@ -3,10 +3,6 @@ import streamlit as st
 from config.frameworks import FRAMEWORKS
 
 
-# -------------------------------------------------------------------
-# Sidebar configuration
-# -------------------------------------------------------------------
-
 FRAMEWORK_ORDER = [
     "UU Enterprise Framework",
     "UU DD&B Framework",
@@ -24,170 +20,105 @@ NAVIGATION_ITEMS = [
 ]
 
 
-# -------------------------------------------------------------------
-# Sidebar
-# -------------------------------------------------------------------
-
 def render_sidebar():
 
     with st.sidebar:
 
-        # -----------------------------------------------------------
-        # Header
-        # -----------------------------------------------------------
+        # ==========================================================
+        # PROJECT CONTROLS HUB
+        # ==========================================================
 
         st.markdown(
-            """
-            <div class="pch-header">
-
-                <div class="pch-brand">
-                    PROJECT CONTROLS HUB
-                </div>
-
-                <div class="pch-tagline">
-                    Design Management Intelligence
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True,
+            "### PROJECT CONTROLS HUB",
+            help="Project Controls Hub",
         )
 
-        # -----------------------------------------------------------
-        # Frameworks heading
-        # -----------------------------------------------------------
+        st.caption("Design Management Intelligence")
 
-        st.markdown(
-            """
-            <div class="pch-section-heading">
-                FRAMEWORKS
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+        st.divider()
 
-        # -----------------------------------------------------------
-        # Frameworks and assets
-        # -----------------------------------------------------------
+        # ==========================================================
+        # FRAMEWORKS
+        # ==========================================================
+
+        st.markdown("**FRAMEWORKS**")
 
         for framework_index, framework in enumerate(FRAMEWORK_ORDER):
 
             if framework not in FRAMEWORKS:
                 continue
 
-            # Separator between frameworks
+            # Framework separator
             if framework_index > 0:
-                st.markdown(
-                    '<div class="pch-framework-divider"></div>',
-                    unsafe_allow_html=True,
-                )
+                st.divider()
 
-            # Framework title
+            # Framework name
             st.markdown(
-                f"""
-                <div class="pch-framework-title">
-                    <span class="pch-framework-marker"></span>
-                    <span>{framework}</span>
-                </div>
-                """,
-                unsafe_allow_html=True,
+                f"**{framework}**"
             )
 
             # Assets
             for asset in FRAMEWORKS[framework]:
 
                 selected = (
-                    st.session_state.get("selected_framework") == framework
-                    and st.session_state.get("selected_asset") == asset
+                    st.session_state.get("selected_framework")
+                    == framework
+                    and
+                    st.session_state.get("selected_asset")
+                    == asset
                 )
 
                 st.button(
                     asset,
-                    key=f"pch_asset_{framework}_{asset}",
+                    key=f"asset_{framework}_{asset}",
                     use_container_width=True,
                     type="primary" if selected else "secondary",
                     on_click=_select_asset,
                     args=(framework, asset),
                 )
 
-        # -----------------------------------------------------------
-        # Navigation separator
-        # -----------------------------------------------------------
+        # ==========================================================
+        # NAVIGATION
+        # ==========================================================
 
-        st.markdown(
-            '<div class="pch-major-divider"></div>',
-            unsafe_allow_html=True,
-        )
+        st.divider()
 
-        # -----------------------------------------------------------
-        # Navigation heading
-        # -----------------------------------------------------------
-
-        st.markdown(
-            """
-            <div class="pch-section-heading">
-                NAVIGATION
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-        # -----------------------------------------------------------
-        # Navigation
-        # -----------------------------------------------------------
+        st.markdown("**NAVIGATION**")
 
         for icon, item in NAVIGATION_ITEMS:
 
             selected = (
-                st.session_state.get("selected_navigation") == item
+                st.session_state.get("selected_navigation")
+                == item
             )
 
             st.button(
-                f"{icon}    {item}",
-                key=f"pch_navigation_{item}",
+                f"{icon}  {item}",
+                key=f"navigation_{item}",
                 use_container_width=True,
                 type="primary" if selected else "secondary",
                 on_click=_select_navigation,
                 args=(item,),
             )
 
-        # -----------------------------------------------------------
-        # Profile
-        # -----------------------------------------------------------
+        # ==========================================================
+        # USER
+        # ==========================================================
 
-        st.markdown(
-            """
-            <div class="pch-profile-area">
+        st.divider()
 
-                <div class="pch-profile">
-
-                    <div class="pch-avatar">
-                        JS
-                    </div>
-
-                    <div class="pch-profile-details">
-
-                        <div class="pch-profile-name">
-                            John Smith
-                        </div>
-
-                        <div class="pch-profile-role">
-                            Design Manager
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True,
+        profile_col1, profile_col2 = st.columns(
+            [1, 3],
+            vertical_alignment="center",
         )
 
+        with profile_col1:
+            st.markdown("**JS**")
 
-# -------------------------------------------------------------------
-# Selection callbacks
-# -------------------------------------------------------------------
+        with profile_col2:
+            st.markdown("**John Smith**")
+            st.caption("Design Manager")
+
 
 def _select_asset(framework, asset):
 
