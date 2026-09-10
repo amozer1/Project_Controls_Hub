@@ -4,7 +4,7 @@ from config.frameworks import FRAMEWORKS
 
 
 # ============================================================
-# ORDER
+# CONFIGURATION
 # ============================================================
 
 FRAMEWORK_ORDER = [
@@ -31,207 +31,180 @@ NAVIGATION_ITEMS = [
 
 def render_sidebar():
 
-    # --------------------------------------------------------
-    # Sidebar CSS
-    # --------------------------------------------------------
+    # ========================================================
+    # SIDEBAR CSS
+    # ========================================================
 
     st.markdown(
         """
         <style>
 
-        /* ==================================================
+        /* ----------------------------------------------------
            SIDEBAR
-           ================================================== */
+           ---------------------------------------------------- */
 
         section[data-testid="stSidebar"] {
-            background: #061936;
-            border-right: 1px solid #183763;
+            background: #071a3a !important;
+            border-right: 1px solid #183968 !important;
         }
 
         section[data-testid="stSidebar"] > div {
-            padding-top: 1rem;
-            padding-left: 1rem;
-            padding-right: 0.7rem;
+            padding: 18px 12px 12px 16px !important;
         }
 
 
-        /* ==================================================
-           HEADER
-           ================================================== */
+        /* ----------------------------------------------------
+           SIDEBAR WIDTH
+           ---------------------------------------------------- */
 
-        .hub-title {
-            color: #f5f7fb;
-            font-size: 19px;
-            font-weight: 700;
-            line-height: 1.05;
-            margin-bottom: 7px;
-            letter-spacing: 0.1px;
-        }
-
-        .hub-subtitle {
-            color: #a9b9d5;
-            font-size: 12px;
-            line-height: 1.2;
-            margin-bottom: 14px;
+        section[data-testid="stSidebar"] {
+            width: 250px !important;
         }
 
 
-        /* ==================================================
-           SECTION TITLE
-           ================================================== */
+        /* ----------------------------------------------------
+           ALL BUTTONS
+           ---------------------------------------------------- */
 
-        .section-title {
-            color: #9eb2d4;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            margin-top: 4px;
-            margin-bottom: 10px;
-        }
-
-
-        /* ==================================================
-           FRAMEWORK NAME
-           ================================================== */
-
-        .framework-name {
-            color: #d9e4f7;
-            font-size: 13px;
-            font-weight: 600;
-            line-height: 1.2;
-            margin-top: 8px;
-            margin-bottom: 4px;
-        }
-
-
-        /* ==================================================
-           PROJECT BUTTONS
-           ================================================== */
-
-        section[data-testid="stSidebar"]
-        .project-button button {
-            background: transparent !important;
-            border: none !important;
-            color: #c6d3e8 !important;
-            min-height: 32px !important;
-            height: 32px !important;
-            padding: 0 8px !important;
+        section[data-testid="stSidebar"] .stButton {
             margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        section[data-testid="stSidebar"] .stButton > button {
+            width: 100% !important;
+            min-height: 34px !important;
+            height: 34px !important;
+
+            padding: 0 10px !important;
+            margin: 0 0 2px 0 !important;
+
+            border-radius: 6px !important;
+
+            font-family: inherit !important;
             font-size: 13px !important;
-            font-weight: 400 !important;
+            line-height: 1 !important;
+
             text-align: left !important;
-            border-radius: 5px !important;
+            justify-content: flex-start !important;
+
             box-shadow: none !important;
         }
 
+
+        /* ----------------------------------------------------
+           NORMAL BUTTON
+           ---------------------------------------------------- */
+
         section[data-testid="stSidebar"]
-        .project-button button:hover {
-            background: #102d5d !important;
-            color: white !important;
+        .stButton > button[kind="secondary"] {
+
+            background: transparent !important;
+
+            border: 1px solid transparent !important;
+
+            color: #c5d3e9 !important;
         }
 
 
-        /* ==================================================
-           SELECTED PROJECT
-           ================================================== */
+        /* Hover */
 
         section[data-testid="stSidebar"]
-        .selected-project button {
-            background: #123e8f !important;
-            border: 1px solid #1e56b0 !important;
-            color: white !important;
+        .stButton > button[kind="secondary"]:hover {
+
+            background: #102e5e !important;
+
+            border-color: #1b477f !important;
+
+            color: #ffffff !important;
+        }
+
+
+        /* ----------------------------------------------------
+           SELECTED BUTTON
+           ---------------------------------------------------- */
+
+        section[data-testid="stSidebar"]
+        .stButton > button[kind="primary"] {
+
+            background: #123e91 !important;
+
+            border: 1px solid #2459b4 !important;
+
+            color: #ffffff !important;
+
             font-weight: 500 !important;
         }
 
 
-        /* ==================================================
-           NAVIGATION BUTTONS
-           ================================================== */
-
-        section[data-testid="stSidebar"]
-        .nav-button button {
-            background: transparent !important;
-            border: none !important;
-            color: #c6d3e8 !important;
-            min-height: 36px !important;
-            height: 36px !important;
-            padding: 0 8px !important;
-            margin: 0 !important;
-            font-size: 13px !important;
-            text-align: left !important;
-            border-radius: 5px !important;
-            box-shadow: none !important;
-        }
-
-        section[data-testid="stSidebar"]
-        .nav-button button:hover {
-            background: #102d5d !important;
-            color: white !important;
-        }
-
-
-        /* ==================================================
-           SELECTED NAVIGATION
-           ================================================== */
-
-        section[data-testid="stSidebar"]
-        .selected-nav button {
-            background: #123e8f !important;
-            border: 1px solid #1e56b0 !important;
-            color: white !important;
-        }
-
-
-        /* ==================================================
+        /* ----------------------------------------------------
            DIVIDERS
-           ================================================== */
+           ---------------------------------------------------- */
 
-        .sidebar-line {
-            height: 1px;
-            background: #193966;
-            margin: 14px 0;
+        section[data-testid="stSidebar"] hr {
+
+            border: none !important;
+
+            border-top: 1px solid #21436f !important;
+
+            margin: 14px 0 !important;
         }
 
 
-        /* ==================================================
-           USER PROFILE
-           ================================================== */
+        /* ----------------------------------------------------
+           HUB TITLE
+           ---------------------------------------------------- */
 
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 5px 5px 3px;
-            border-top: 1px solid #193966;
-            margin-top: 14px;
+        .hub-title {
+            color: #f5f7fc;
+            font-size: 19px;
+            font-weight: 700;
+            line-height: 1.15;
+            margin: 0;
+            padding: 0;
         }
 
-        .user-avatar {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: #19335c;
-            color: #dce8fa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .hub-subtitle {
+            color: #9aafd0;
+            font-size: 11px;
+            margin-top: 5px;
+            margin-bottom: 0;
+        }
+
+
+        /* ----------------------------------------------------
+           SECTION TITLE
+           ---------------------------------------------------- */
+
+        .sidebar-section {
+            color: #9eb5d8;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin: 0 0 7px 0;
+        }
+
+
+        /* ----------------------------------------------------
+           FRAMEWORK TITLE
+           ---------------------------------------------------- */
+
+        .framework-title {
+            color: #d9e4f6;
             font-size: 13px;
             font-weight: 600;
-            flex-shrink: 0;
+            margin: 8px 0 4px 0;
         }
 
-        .user-name {
-            color: #e6edf8;
-            font-size: 13px;
-            font-weight: 500;
-            line-height: 1.2;
-        }
 
-        .user-role {
-            color: #8fa5c7;
-            font-size: 11px;
-            margin-top: 3px;
-            line-height: 1.2;
+        /* ----------------------------------------------------
+           USER PROFILE
+           ---------------------------------------------------- */
+
+        .user-container {
+            border-top: 1px solid #21436f;
+            margin-top: 16px;
+            padding-top: 12px;
         }
 
         </style>
@@ -251,19 +224,16 @@ def render_sidebar():
         # ----------------------------------------------------
 
         st.markdown(
-            """
-            <div class="hub-title">
-                PROJECT CONTROLS HUB
-            </div>
-
-            <div class="hub-subtitle">
-                Design Management Intelligence
-            </div>
-            """,
+            '<div class="hub-title">PROJECT CONTROLS HUB</div>',
             unsafe_allow_html=True,
         )
 
-        st.markdown('<div class="sidebar-line"></div>', unsafe_allow_html=True)
+        st.markdown(
+            '<div class="hub-subtitle">Design Management Intelligence</div>',
+            unsafe_allow_html=True,
+        )
+
+        st.divider()
 
 
         # ----------------------------------------------------
@@ -271,7 +241,7 @@ def render_sidebar():
         # ----------------------------------------------------
 
         st.markdown(
-            '<div class="section-title">FRAMEWORKS</div>',
+            '<div class="sidebar-section">FRAMEWORKS</div>',
             unsafe_allow_html=True,
         )
 
@@ -282,14 +252,10 @@ def render_sidebar():
                 continue
 
 
-            # Framework heading
+            # Framework name
 
             st.markdown(
-                f"""
-                <div class="framework-name">
-                    {framework}
-                </div>
-                """,
+                f'<div class="framework-title">{framework}</div>',
                 unsafe_allow_html=True,
             )
 
@@ -307,58 +273,37 @@ def render_sidebar():
                 )
 
 
-                # Circle indicator like the screenshot
+                # Circle like screenshot
 
-                icon = "●" if selected else "○"
+                circle = "●" if selected else "○"
 
-                label = f"{icon}  {asset}"
-
-
-                if selected:
-                    st.markdown(
-                        '<div class="selected-project">',
-                        unsafe_allow_html=True,
-                    )
-                else:
-                    st.markdown(
-                        '<div class="project-button">',
-                        unsafe_allow_html=True,
-                    )
+                label = f"{circle}  {asset}"
 
 
                 st.button(
                     label,
                     key=f"asset_{framework}_{asset}",
                     use_container_width=True,
+                    type="primary" if selected else "secondary",
                     on_click=_select_asset,
                     args=(framework, asset),
                 )
 
 
-                st.markdown("</div>", unsafe_allow_html=True)
-
-
             # Divider between frameworks
 
             if framework_index < len(FRAMEWORK_ORDER) - 1:
-
-                st.markdown(
-                    '<div class="sidebar-line"></div>',
-                    unsafe_allow_html=True,
-                )
+                st.divider()
 
 
         # ----------------------------------------------------
         # NAVIGATION
         # ----------------------------------------------------
 
-        st.markdown(
-            '<div class="sidebar-line"></div>',
-            unsafe_allow_html=True,
-        )
+        st.divider()
 
         st.markdown(
-            '<div class="section-title">NAVIGATION</div>',
+            '<div class="sidebar-section">NAVIGATION</div>',
             unsafe_allow_html=True,
         )
 
@@ -371,28 +316,14 @@ def render_sidebar():
             )
 
 
-            if selected:
-                st.markdown(
-                    '<div class="selected-nav">',
-                    unsafe_allow_html=True,
-                )
-            else:
-                st.markdown(
-                    '<div class="nav-button">',
-                    unsafe_allow_html=True,
-                )
-
-
             st.button(
                 f"{icon}  {item}",
                 key=f"navigation_{item}",
                 use_container_width=True,
+                type="primary" if selected else "secondary",
                 on_click=_select_navigation,
                 args=(item,),
             )
-
-
-            st.markdown("</div>", unsafe_allow_html=True)
 
 
         # ----------------------------------------------------
@@ -400,27 +331,57 @@ def render_sidebar():
         # ----------------------------------------------------
 
         st.markdown(
-            """
-            <div class="user-profile">
-
-                <div class="user-avatar">
-                    JS
-                </div>
-
-                <div>
-                    <div class="user-name">
-                        John Smith
-                    </div>
-
-                    <div class="user-role">
-                        Design Manager
-                    </div>
-                </div>
-
-            </div>
-            """,
+            '<div class="user-container"></div>',
             unsafe_allow_html=True,
         )
+
+        user_col1, user_col2 = st.columns([0.22, 0.78])
+
+        with user_col1:
+
+            st.markdown(
+                """
+                <div style="
+                    width:36px;
+                    height:36px;
+                    border-radius:50%;
+                    background:#19365f;
+                    color:#e4ecfa;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    font-size:12px;
+                    font-weight:600;
+                ">
+                    JS
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+        with user_col2:
+
+            st.markdown(
+                """
+                <div style="
+                    color:#e6edf8;
+                    font-size:13px;
+                    font-weight:500;
+                    padding-top:2px;
+                ">
+                    John Smith
+                </div>
+
+                <div style="
+                    color:#8ea5c7;
+                    font-size:11px;
+                    margin-top:3px;
+                ">
+                    Design Manager
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
 
 
 # ============================================================
