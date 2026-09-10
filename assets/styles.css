@@ -1,14 +1,30 @@
 /* =========================================================
-   SIDEBAR
+   PROJECT CONTROLS HUB
+   PROFESSIONAL SIDEBAR
+   ========================================================= */
+
+
+/* =========================================================
+   SIDEBAR CONTAINER
    ========================================================= */
 
 section[data-testid="stSidebar"] {
-    background-color: #0b1220;
+    background: #0b1220;
+    border-right: 1px solid #1d293b;
 }
 
     section[data-testid="stSidebar"] > div {
-        padding-top: 0.8rem;
-        padding-bottom: 0.5rem;
+        padding: 0 !important;
+    }
+
+    section[data-testid="stSidebar"] .block-container {
+        padding: 14px 12px 8px 12px !important;
+    }
+
+
+    /* Keep sidebar content compact and prevent unnecessary scroll */
+    section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] {
+        gap: 0 !important;
     }
 
 
@@ -16,140 +32,248 @@ section[data-testid="stSidebar"] {
    HEADER
    ========================================================= */
 
-.sidebar-header {
-    padding: 0 0.25rem 0.45rem 0.25rem;
+.pch-header {
+    padding: 2px 7px 12px 7px;
+    border-bottom: 1px solid #263348;
+    margin-bottom: 11px;
 }
 
-.sidebar-title {
-    color: #ffffff;
-    font-size: 15px;
+.pch-title {
+    color: #f4f7fb;
+    font-size: 14px;
     font-weight: 700;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.45px;
     line-height: 1.2;
 }
 
-.sidebar-subtitle {
+.pch-subtitle {
     color: #7f8da3;
-    font-size: 10px;
-    margin-top: 3px;
-    line-height: 1.2;
-}
-
-
-/* =========================================================
-   SECTION TITLES
-   ========================================================= */
-
-.sidebar-section-title {
-    color: #718097;
     font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin: 9px 4px 4px 4px;
-}
-
-
-/* =========================================================
-   FRAMEWORK NAMES
-   ========================================================= */
-
-.framework-name {
-    color: #b7c3d6;
-    font-size: 10px;
-    font-weight: 600;
-    margin: 5px 4px 2px 4px;
+    font-weight: 400;
+    letter-spacing: 0.15px;
+    margin-top: 4px;
     line-height: 1.2;
 }
 
 
 /* =========================================================
-   SIDEBAR BUTTONS
+   SECTION LABEL
+   ========================================================= */
+
+.pch-section-label {
+    color: #65748b;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    padding: 0 7px 5px 7px;
+    line-height: 1;
+}
+
+
+/* =========================================================
+   FRAMEWORK NAME
+   ========================================================= */
+
+.pch-framework {
+    color: #b8c4d5;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    padding: 5px 7px 3px 7px;
+    line-height: 1.15;
+}
+
+
+/* =========================================================
+   HORIZONTAL SEPARATORS
+   ========================================================= */
+
+.pch-divider {
+    height: 1px;
+    background: #202d40;
+    margin: 7px 5px 8px 5px;
+}
+
+.pch-navigation-divider {
+    margin-top: 9px;
+    margin-bottom: 10px;
+}
+
+
+/* =========================================================
+   ALL SIDEBAR BUTTONS
    ========================================================= */
 
 section[data-testid="stSidebar"] button {
-    min-height: 26px !important;
-    height: 26px !important;
-    padding: 2px 8px !important;
+    min-height: 27px !important;
+    height: 27px !important;
+    padding: 3px 9px !important;
     margin: 1px 0 !important;
     border-radius: 4px !important;
-    font-size: 11px !important;
+    font-size: 10px !important;
+    font-weight: 500 !important;
     line-height: 1 !important;
     box-shadow: none !important;
+    transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease;
 }
 
 
     /* =========================================================
-   NORMAL
+   PROJECT / ASSET BUTTONS
    ========================================================= */
 
+    /* Normal project */
     section[data-testid="stSidebar"] button[kind="secondary"] {
         background: transparent !important;
         border: 1px solid transparent !important;
         color: #aebbd0 !important;
+        text-align: left !important;
     }
 
+        /* Hover */
         section[data-testid="stSidebar"] button[kind="secondary"]:hover {
-            background: #162238 !important;
-            color: #ffffff !important;
+            background: #131f31 !important;
+            border-color: #26364e !important;
+            color: #edf3fa !important;
         }
 
 
     /* =========================================================
-   SELECTED
+   SELECTED ITEM
    ========================================================= */
 
     section[data-testid="stSidebar"] button[kind="primary"] {
-        background: #1769d1 !important;
-        border: 1px solid #1769d1 !important;
+        background: #155fbd !important;
+        border: 1px solid #1b70d4 !important;
         color: #ffffff !important;
+        font-weight: 600 !important;
+        text-align: left !important;
     }
 
         section[data-testid="stSidebar"] button[kind="primary"]:hover {
-            background: #1d73df !important;
-            border-color: #1d73df !important;
+            background: #196bc9 !important;
+            border-color: #2879d8 !important;
         }
+
+
+/* =========================================================
+   NAVIGATION BUTTONS
+   ========================================================= */
+
+section[data-testid="stSidebar"] .pch-section-label ~ div button {
+    min-height: 28px !important;
+    height: 28px !important;
+}
+
+
+/* =========================================================
+   PROFILE SEPARATOR
+   ========================================================= */
+
+.pch-profile-divider {
+    height: 1px;
+    background: #263348;
+    margin: 9px 5px 8px 5px;
+}
 
 
 /* =========================================================
    PROFILE
    ========================================================= */
 
-.sidebar-profile {
+.pch-profile {
     display: flex;
     align-items: center;
-    border-top: 1px solid #202c3f;
-    margin-top: 12px;
-    padding: 8px 4px 2px 4px;
+    padding: 2px 6px 1px 6px;
 }
 
-.profile-avatar {
-    width: 30px;
-    height: 30px;
-    min-width: 30px;
+.pch-avatar {
+    width: 29px;
+    height: 29px;
+    min-width: 29px;
     border-radius: 50%;
-    background: #1769d1;
+    background: #155fbd;
+    border: 1px solid #2879d8;
     color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 700;
 }
 
-.profile-details {
+.pch-profile-details {
     margin-left: 9px;
 }
 
-.profile-name {
-    color: #ffffff;
-    font-size: 11px;
+.pch-profile-name {
+    color: #edf2f8;
+    font-size: 10px;
     font-weight: 600;
-    line-height: 1.2;
+    line-height: 1.15;
 }
 
-.profile-role {
+.pch-profile-role {
     color: #718097;
-    font-size: 9px;
-    margin-top: 2px;
-    line-height: 1.2;
+    font-size: 8px;
+    font-weight: 400;
+    margin-top: 3px;
+    line-height: 1.15;
+}
+
+
+/* =========================================================
+   REMOVE EXCESS STREAMLIT SPACING
+   ========================================================= */
+
+section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] > div {
+    margin-bottom: 0 !important;
+}
+
+section[data-testid="stSidebar"] .stButton {
+    margin-bottom: 0 !important;
+}
+
+
+/* =========================================================
+   SMALL SCREEN SAFETY
+   ========================================================= */
+
+@media (max-height: 800px) {
+
+    section[data-testid="stSidebar"] .block-container {
+        padding-top: 9px !important;
+        padding-bottom: 4px !important;
+    }
+
+    .pch-header {
+        padding-bottom: 8px;
+        margin-bottom: 7px;
+    }
+
+    .pch-framework {
+        padding-top: 3px;
+        padding-bottom: 2px;
+    }
+
+    section[data-testid="stSidebar"] button {
+        min-height: 24px !important;
+        height: 24px !important;
+        font-size: 9px !important;
+    }
+
+    .pch-divider {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .pch-navigation-divider {
+        margin-top: 6px;
+        margin-bottom: 7px;
+    }
+
+    .pch-profile-divider {
+        margin-top: 6px;
+        margin-bottom: 6px;
+    }
 }

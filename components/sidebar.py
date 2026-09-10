@@ -7,12 +7,15 @@ def render_sidebar():
 
     with st.sidebar:
 
+        # =====================================================
         # HEADER
+        # =====================================================
+
         st.markdown(
             """
-            <div class="sidebar-header">
-                <div class="sidebar-title">PROJECT CONTROLS HUB</div>
-                <div class="sidebar-subtitle">
+            <div class="pch-header">
+                <div class="pch-title">PROJECT CONTROLS HUB</div>
+                <div class="pch-subtitle">
                     Design Management Intelligence
                 </div>
             </div>
@@ -20,20 +23,43 @@ def render_sidebar():
             unsafe_allow_html=True,
         )
 
+        # =====================================================
         # FRAMEWORKS
+        # =====================================================
+
         st.markdown(
-            '<div class="sidebar-section-title">FRAMEWORKS</div>',
+            '<div class="pch-section-label">FRAMEWORKS</div>',
             unsafe_allow_html=True,
         )
 
-        for framework, assets in FRAMEWORKS.items():
+        # Enterprise first
+        framework_order = [
+            "UU Enterprise Framework",
+            "UU DD&B Framework",
+        ]
+
+        for index, framework in enumerate(framework_order):
+
+            if framework not in FRAMEWORKS:
+                continue
+
+            # Separator between frameworks
+            if index > 0:
+                st.markdown(
+                    '<div class="pch-divider"></div>',
+                    unsafe_allow_html=True,
+                )
 
             st.markdown(
-                f'<div class="framework-name">{framework}</div>',
+                f"""
+                <div class="pch-framework">
+                    {framework}
+                </div>
+                """,
                 unsafe_allow_html=True,
             )
 
-            for asset in assets:
+            for asset in FRAMEWORKS[framework]:
 
                 selected = (
                     st.session_state.selected_framework == framework
@@ -41,7 +67,7 @@ def render_sidebar():
                 )
 
                 st.button(
-                    f"{'●' if selected else '○'}  {asset}",
+                    asset,
                     key=f"asset_{framework}_{asset}",
                     use_container_width=True,
                     type="primary" if selected else "secondary",
@@ -49,19 +75,31 @@ def render_sidebar():
                     args=(framework, asset),
                 )
 
-        # NAVIGATION
+        # =====================================================
+        # NAVIGATION SEPARATOR
+        # =====================================================
+
         st.markdown(
-            '<div class="sidebar-section-title">NAVIGATION</div>',
+            '<div class="pch-divider pch-navigation-divider"></div>',
             unsafe_allow_html=True,
         )
 
+        st.markdown(
+            '<div class="pch-section-label">NAVIGATION</div>',
+            unsafe_allow_html=True,
+        )
+
+        # =====================================================
+        # NAVIGATION
+        # =====================================================
+
         navigation_items = [
-            ("▣", "Overview"),
+            ("▦", "Overview"),
             ("◫", "Programme"),
-            ("◈", "Delivery & Programme"),
+            ("◇", "Delivery & Programme"),
             ("◌", "Communications"),
             ("▤", "Documents"),
-            ("⚡", "Intelligence"),
+            ("✦", "Intelligence"),
             ("▥", "Reports"),
             ("⚙", "Settings"),
         ]
@@ -81,14 +119,24 @@ def render_sidebar():
                 args=(item,),
             )
 
+        # =====================================================
         # PROFILE
+        # =====================================================
+
         st.markdown(
             """
-            <div class="sidebar-profile">
-                <div class="profile-avatar">JS</div>
-                <div class="profile-details">
-                    <div class="profile-name">John Smith</div>
-                    <div class="profile-role">Design Manager</div>
+            <div class="pch-profile-divider"></div>
+
+            <div class="pch-profile">
+                <div class="pch-avatar">JS</div>
+
+                <div class="pch-profile-details">
+                    <div class="pch-profile-name">
+                        John Smith
+                    </div>
+                    <div class="pch-profile-role">
+                        Design Manager
+                    </div>
                 </div>
             </div>
             """,
