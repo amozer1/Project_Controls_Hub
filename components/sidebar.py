@@ -12,7 +12,6 @@ FRAMEWORK_ORDER = [
     "UU DD&B Framework",
 ]
 
-
 NAVIGATION_ITEMS = [
     ("Overview", "⌂"),
     ("Programme", "▤"),
@@ -31,9 +30,9 @@ NAVIGATION_ITEMS = [
 
 def render_sidebar():
 
-    # ========================================================
-    # SIDEBAR CSS
-    # ========================================================
+    # --------------------------------------------------------
+    # CSS
+    # --------------------------------------------------------
 
     st.markdown(
         """
@@ -44,38 +43,52 @@ def render_sidebar():
            ==================================================== */
 
         section[data-testid="stSidebar"] {
-            background-color: #071a35 !important;
+            background: #06172f !important;
         }
 
         section[data-testid="stSidebar"] > div {
-            padding: 10px 9px 12px 9px !important;
+            padding: 14px 12px 18px 12px !important;
         }
 
 
         /* ====================================================
-           ALL CARDS
+           REAL STREAMLIT CARDS
            ==================================================== */
 
         section[data-testid="stSidebar"]
         [data-testid="stVerticalBlockBorderWrapper"] {
 
-            background: #0b2345 !important;
+            background: #0b2346 !important;
 
-            border: 1px solid #23476f !important;
+            border: 1px solid #24496f !important;
 
-            border-radius: 9px !important;
+            border-radius: 10px !important;
 
-            padding: 9px 9px 8px 9px !important;
+            padding: 14px 13px !important;
 
-            margin: 0 0 8px 0 !important;
+            margin: 0 0 12px 0 !important;
+
+            width: 100% !important;
 
             box-shadow:
-                0 2px 5px rgba(0, 0, 0, 0.12) !important;
+                0 3px 10px rgba(0, 0, 0, 0.16) !important;
         }
 
 
         /* ====================================================
-           HUB CARD
+           CARD INTERNAL SPACING
+           ==================================================== */
+
+        section[data-testid="stSidebar"]
+        [data-testid="stVerticalBlockBorderWrapper"]
+        [data-testid="stVerticalBlock"] {
+
+            gap: 0.25rem !important;
+        }
+
+
+        /* ====================================================
+           HUB
            ==================================================== */
 
         .hub-title {
@@ -85,7 +98,7 @@ def render_sidebar():
 
             font-weight: 700;
 
-            line-height: 18px;
+            line-height: 20px;
 
             margin: 0;
         }
@@ -95,50 +108,45 @@ def render_sidebar():
 
             font-size: 10px;
 
-            font-weight: 400;
-
-            line-height: 14px;
+            line-height: 15px;
 
             margin-top: 3px;
         }
 
 
         /* ====================================================
-           SECTION TITLES
+           SECTION TITLE
            ==================================================== */
 
         .section-title {
-
-            color: #e4edf8;
+            color: #e7eef8;
 
             font-size: 12px;
 
             font-weight: 650;
 
-            line-height: 16px;
+            line-height: 18px;
 
-            margin: 0 0 5px 0;
-
-            text-align: left;
+            margin: 0 0 8px 0;
         }
 
 
         /* ====================================================
-           BUTTON CONTAINER
+           BUTTON WRAPPER
            ==================================================== */
 
         section[data-testid="stSidebar"] .stButton {
 
+            width: 100% !important;
+
             margin: 0 !important;
 
             padding: 0 !important;
-
-            width: 100% !important;
         }
 
 
         /* ====================================================
-           BUTTONS
+           BUTTON
            ==================================================== */
 
         section[data-testid="stSidebar"]
@@ -146,25 +154,31 @@ def render_sidebar():
 
             width: 100% !important;
 
-            height: 29px !important;
+            height: 32px !important;
 
-            min-height: 29px !important;
+            min-height: 32px !important;
 
-            padding: 3px 7px !important;
+            margin: 2px 0 !important;
 
-            margin: 1px 0 !important;
+            padding: 6px 9px !important;
 
-            border-radius: 5px !important;
+            border-radius: 6px !important;
 
-            font-size: 11px !important;
+            display: flex !important;
 
-            line-height: 15px !important;
-
-            text-align: left !important;
+            align-items: center !important;
 
             justify-content: flex-start !important;
 
+            text-align: left !important;
+
+            font-size: 11px !important;
+
+            line-height: 16px !important;
+
             box-shadow: none !important;
+
+            white-space: nowrap !important;
         }
 
 
@@ -179,7 +193,7 @@ def render_sidebar():
 
             border: 1px solid transparent !important;
 
-            color: #bdcce0 !important;
+            color: #c1d0e4 !important;
         }
 
 
@@ -190,24 +204,24 @@ def render_sidebar():
         section[data-testid="stSidebar"]
         .stButton > button[kind="secondary"]:hover {
 
-            background: #12345d !important;
+            background: #14365f !important;
 
-            border: 1px solid #28527f !important;
+            border-color: #2c5681 !important;
 
             color: #ffffff !important;
         }
 
 
         /* ====================================================
-           SELECTED BUTTON
+           SELECTED
            ==================================================== */
 
         section[data-testid="stSidebar"]
         .stButton > button[kind="primary"] {
 
-            background: #174b82 !important;
+            background: #18518b !important;
 
-            border: 1px solid #3476b5 !important;
+            border: 1px solid #3a79b5 !important;
 
             color: #ffffff !important;
 
@@ -222,13 +236,15 @@ def render_sidebar():
         section[data-testid="stSidebar"]
         .stButton > button p {
 
+            width: 100% !important;
+
             margin: 0 !important;
 
             padding: 0 !important;
 
-            width: 100% !important;
-
             text-align: left !important;
+
+            line-height: 16px !important;
         }
 
 
@@ -237,16 +253,14 @@ def render_sidebar():
            ==================================================== */
 
         .user-avatar {
-
-            width: 38px;
-
-            height: 38px;
+            width: 40px;
+            height: 40px;
 
             border-radius: 50%;
 
             background: #1b4f87;
 
-            border: 1px solid #3974ad;
+            border: 1px solid #3976b2;
 
             color: #ffffff;
 
@@ -259,40 +273,25 @@ def render_sidebar():
             font-size: 11px;
 
             font-weight: 700;
-
-            letter-spacing: 0.2px;
-
-            margin-top: 1px;
         }
 
-
         .user-name {
-
-            color: #edf3fb;
+            color: #eef4fc;
 
             font-size: 12px;
 
             font-weight: 650;
 
-            line-height: 16px;
-
-            margin: 0;
+            line-height: 17px;
         }
 
-
         .user-role {
-
-            color: #8fa7c8;
+            color: #8fa8c9;
 
             font-size: 10px;
 
-            font-weight: 400;
-
-            line-height: 14px;
-
-            margin: 0;
+            line-height: 15px;
         }
-
 
         </style>
         """,
@@ -300,15 +299,10 @@ def render_sidebar():
     )
 
 
-    # ========================================================
-    # SIDEBAR CONTENT
-    # ========================================================
-
     with st.sidebar:
 
-
         # ====================================================
-        # 1. PROJECT CONTROLS HUB CARD
+        # 1 — PROJECT CONTROLS HUB
         # ====================================================
 
         with st.container(border=True):
@@ -329,7 +323,7 @@ def render_sidebar():
 
 
         # ====================================================
-        # 2. UU ENTERPRISE FRAMEWORK CARD
+        # 2 — UU ENTERPRISE FRAMEWORK
         # ====================================================
 
         with st.container(border=True):
@@ -341,14 +335,10 @@ def render_sidebar():
                 unsafe_allow_html=True,
             )
 
-
-            enterprise_projects = FRAMEWORKS.get(
+            for asset in FRAMEWORKS.get(
                 "UU Enterprise Framework",
                 [],
-            )
-
-
-            for asset in enterprise_projects:
+            ):
 
                 selected = (
                     st.session_state.get(
@@ -362,22 +352,12 @@ def render_sidebar():
                     == asset
                 )
 
-
                 st.button(
                     f"{'●' if selected else '○'}  {asset}",
-
                     key=f"enterprise_{asset}",
-
                     use_container_width=True,
-
-                    type=(
-                        "primary"
-                        if selected
-                        else "secondary"
-                    ),
-
+                    type="primary" if selected else "secondary",
                     on_click=_select_asset,
-
                     args=(
                         "UU Enterprise Framework",
                         asset,
@@ -386,7 +366,7 @@ def render_sidebar():
 
 
         # ====================================================
-        # 3. UU DD&B FRAMEWORK CARD
+        # 3 — UU DD&B FRAMEWORK
         # ====================================================
 
         with st.container(border=True):
@@ -398,14 +378,10 @@ def render_sidebar():
                 unsafe_allow_html=True,
             )
 
-
-            ddb_projects = FRAMEWORKS.get(
+            for asset in FRAMEWORKS.get(
                 "UU DD&B Framework",
                 [],
-            )
-
-
-            for asset in ddb_projects:
+            ):
 
                 selected = (
                     st.session_state.get(
@@ -419,22 +395,12 @@ def render_sidebar():
                     == asset
                 )
 
-
                 st.button(
                     f"{'●' if selected else '○'}  {asset}",
-
                     key=f"ddb_{asset}",
-
                     use_container_width=True,
-
-                    type=(
-                        "primary"
-                        if selected
-                        else "secondary"
-                    ),
-
+                    type="primary" if selected else "secondary",
                     on_click=_select_asset,
-
                     args=(
                         "UU DD&B Framework",
                         asset,
@@ -443,7 +409,7 @@ def render_sidebar():
 
 
         # ====================================================
-        # 4. NAVIGATION CARD
+        # 4 — NAVIGATION
         # ====================================================
 
         with st.container(border=True):
@@ -455,7 +421,6 @@ def render_sidebar():
                 unsafe_allow_html=True,
             )
 
-
             for item, icon in NAVIGATION_ITEMS:
 
                 selected = (
@@ -465,41 +430,26 @@ def render_sidebar():
                     == item
                 )
 
-
                 st.button(
                     f"{icon}  {item}",
-
                     key=f"navigation_{item}",
-
                     use_container_width=True,
-
-                    type=(
-                        "primary"
-                        if selected
-                        else "secondary"
-                    ),
-
+                    type="primary" if selected else "secondary",
                     on_click=_select_navigation,
-
                     args=(item,),
                 )
 
 
         # ====================================================
-        # 5. USER PROFILE CARD
+        # 5 — USER PROFILE
         # ====================================================
 
         with st.container(border=True):
 
             user_col1, user_col2 = st.columns(
-                [0.85, 3.15],
-                gap="small",
+                [0.9, 3.1],
+                gap="medium",
             )
-
-
-            # ------------------------------------------------
-            # Avatar
-            # ------------------------------------------------
 
             with user_col1:
 
@@ -511,11 +461,6 @@ def render_sidebar():
                     """,
                     unsafe_allow_html=True,
                 )
-
-
-            # ------------------------------------------------
-            # User information
-            # ------------------------------------------------
 
             with user_col2:
 
@@ -540,9 +485,7 @@ def render_sidebar():
 def _select_asset(framework, asset):
 
     st.session_state.selected_framework = framework
-
     st.session_state.selected_asset = asset
-
     st.session_state.selected_navigation = "Overview"
 
 
