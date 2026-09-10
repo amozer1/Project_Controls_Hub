@@ -11,7 +11,7 @@ def render_sidebar():
         # HEADER
         # =====================================================
 
-        st.markdown(
+        st.html(
             """
             <div class="pch-header">
                 <div class="pch-title">PROJECT CONTROLS HUB</div>
@@ -19,48 +19,48 @@ def render_sidebar():
                     Design Management Intelligence
                 </div>
             </div>
-            """,
-            unsafe_allow_html=True,
+            """
         )
 
         # =====================================================
         # FRAMEWORKS
         # =====================================================
 
-        st.markdown(
-            '<div class="pch-section-label">FRAMEWORKS</div>',
-            unsafe_allow_html=True,
+        st.html(
+            """
+            <div class="pch-section-label">
+                FRAMEWORKS
+            </div>
+            """
         )
 
-        # Enterprise first
+        # Enterprise Framework first
         framework_order = [
             "UU Enterprise Framework",
             "UU DD&B Framework",
         ]
 
-        for framework_index, framework in enumerate(framework_order):
+        for index, framework in enumerate(framework_order):
 
             if framework not in FRAMEWORKS:
                 continue
 
-            # Separator between frameworks
-            if framework_index > 0:
-                st.markdown(
-                    '<div class="pch-divider"></div>',
-                    unsafe_allow_html=True,
+            # Horizontal separator between frameworks
+            if index > 0:
+                st.html(
+                    '<div class="pch-divider"></div>'
                 )
 
-            # Framework name
-            st.markdown(
+            # Framework heading
+            st.html(
                 f"""
                 <div class="pch-framework">
                     {framework}
                 </div>
-                """,
-                unsafe_allow_html=True,
+                """
             )
 
-            # Assets
+            # Framework assets
             for asset in FRAMEWORKS[framework]:
 
                 selected = (
@@ -81,23 +81,21 @@ def render_sidebar():
         # NAVIGATION SEPARATOR
         # =====================================================
 
-        st.markdown(
-            '<div class="pch-divider pch-navigation-divider"></div>',
-            unsafe_allow_html=True,
-        )
-
-        # =====================================================
-        # NAVIGATION TITLE
-        # =====================================================
-
-        st.markdown(
-            '<div class="pch-section-label">NAVIGATION</div>',
-            unsafe_allow_html=True,
+        st.html(
+            '<div class="pch-divider pch-navigation-divider"></div>'
         )
 
         # =====================================================
         # NAVIGATION
         # =====================================================
+
+        st.html(
+            """
+            <div class="pch-section-label">
+                NAVIGATION
+            </div>
+            """
+        )
 
         navigation_items = [
             ("▦", "Overview"),
@@ -129,22 +127,34 @@ def render_sidebar():
         # PROFILE
         # =====================================================
 
-        st.markdown(
+        st.html(
             """
             <div class="pch-profile-divider"></div>
 
             <div class="pch-profile">
-                <div class="pch-avatar">JS</div>
+
+                <div class="pch-avatar">
+                    JS
+                </div>
 
                 <div class="pch-profile-details">
-                    <div class="pch-profile-name">John Smith</div>
-                    <div class="pch-profile-role">Design Manager</div>
+                    <div class="pch-profile-name">
+                        John Smith
+                    </div>
+
+                    <div class="pch-profile-role">
+                        Design Manager
+                    </div>
                 </div>
+
             </div>
-            """,
-            unsafe_allow_html=True,
+            """
         )
 
+
+# =========================================================
+# CALLBACKS
+# =========================================================
 
 def _select_asset(framework, asset):
 

@@ -1,6 +1,6 @@
 /* =========================================================
    PROJECT CONTROLS HUB
-   PROFESSIONAL SIDEBAR
+   SIDEBAR
    ========================================================= */
 
 
@@ -10,7 +10,7 @@
 
 section[data-testid="stSidebar"] {
     background-color: #0b1220;
-    border-right: 1px solid #1d293b;
+    border-right: 1px solid #202c3f;
 }
 
     section[data-testid="stSidebar"] > div {
@@ -22,9 +22,17 @@ section[data-testid="stSidebar"] {
     }
 
 
-    /* Remove Streamlit vertical gaps */
+    /* =========================================================
+   COMPACT STREAMLIT SPACING
+   ========================================================= */
+
     section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] {
         gap: 0 !important;
+    }
+
+    section[data-testid="stSidebar"] .stButton {
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
 
@@ -33,7 +41,7 @@ section[data-testid="stSidebar"] {
    ========================================================= */
 
 .pch-header {
-    padding: 2px 7px 11px 7px;
+    padding: 3px 7px 11px 7px;
     margin-bottom: 10px;
     border-bottom: 1px solid #263348;
 }
@@ -57,7 +65,7 @@ section[data-testid="stSidebar"] {
 
 
 /* =========================================================
-   SECTION LABELS
+   SECTION HEADINGS
    ========================================================= */
 
 .pch-section-label {
@@ -71,11 +79,11 @@ section[data-testid="stSidebar"] {
 
 
 /* =========================================================
-   FRAMEWORK NAME
+   FRAMEWORK HEADINGS
    ========================================================= */
 
 .pch-framework {
-    color: #c0cad8;
+    color: #c4cedc;
     font-size: 9px;
     font-weight: 600;
     letter-spacing: 0.15px;
@@ -90,28 +98,18 @@ section[data-testid="stSidebar"] {
 
 .pch-divider {
     height: 1px;
-    background-color: #202d40;
+    background-color: #263348;
     margin: 7px 5px 8px 5px;
 }
 
 .pch-navigation-divider {
-    margin-top: 9px;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 11px;
 }
 
 
 /* =========================================================
-   STREAMLIT BUTTON CONTAINER
-   ========================================================= */
-
-section[data-testid="stSidebar"] .stButton {
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-
-/* =========================================================
-   ALL BUTTONS
+   SIDEBAR BUTTONS
    ========================================================= */
 
 section[data-testid="stSidebar"] button {
@@ -142,13 +140,13 @@ section[data-testid="stSidebar"] button {
 
 
         /* =========================================================
-   NORMAL BUTTON HOVER
+   HOVER
    ========================================================= */
 
         section[data-testid="stSidebar"] button[kind="secondary"]:hover {
-            background-color: #131f31 !important;
+            background-color: #141f30 !important;
             border-color: #26364e !important;
-            color: #f1f5fa !important;
+            color: #f4f7fb !important;
         }
 
 
@@ -158,7 +156,7 @@ section[data-testid="stSidebar"] button {
 
     section[data-testid="stSidebar"] button[kind="primary"] {
         background-color: #155fbd !important;
-        border: 1px solid #1b70d4 !important;
+        border: 1px solid #1d70d3 !important;
         color: #ffffff !important;
         font-weight: 600 !important;
         text-align: left !important;
@@ -166,7 +164,7 @@ section[data-testid="stSidebar"] button {
 
 
         /* =========================================================
-   SELECTED BUTTON HOVER
+   SELECTED HOVER
    ========================================================= */
 
         section[data-testid="stSidebar"] button[kind="primary"]:hover {
@@ -183,7 +181,7 @@ section[data-testid="stSidebar"] button {
 .pch-profile-divider {
     height: 1px;
     background-color: #263348;
-    margin: 9px 5px 8px 5px;
+    margin: 10px 5px 8px 5px;
 }
 
 
@@ -199,7 +197,7 @@ section[data-testid="stSidebar"] button {
 
 
 /* =========================================================
-   PROFILE AVATAR
+   AVATAR
    ========================================================= */
 
 .pch-avatar {
@@ -215,11 +213,12 @@ section[data-testid="stSidebar"] button {
     justify-content: center;
     font-size: 9px;
     font-weight: 700;
+    line-height: 1;
 }
 
 
 /* =========================================================
-   PROFILE DETAILS
+   PROFILE TEXT
    ========================================================= */
 
 .pch-profile-details {
@@ -243,13 +242,13 @@ section[data-testid="stSidebar"] button {
 
 
 /* =========================================================
-   SMALL SCREEN / LOWER HEIGHT
+   COMPACT SCREEN
    ========================================================= */
 
-@media (max-height: 800px) {
+@media (max-height: 900px) {
 
     section[data-testid="stSidebar"] .block-container {
-        padding-top: 8px !important;
+        padding-top: 9px !important;
         padding-bottom: 4px !important;
     }
 
@@ -282,5 +281,56 @@ section[data-testid="stSidebar"] button {
     .pch-profile-divider {
         margin-top: 6px;
         margin-bottom: 6px;
+    }
+}
+
+
+/* =========================================================
+   VERY SHORT SCREEN
+   ========================================================= */
+
+@media (max-height: 750px) {
+
+    section[data-testid="stSidebar"] .block-container {
+        padding-top: 6px !important;
+    }
+
+    .pch-header {
+        padding-bottom: 6px;
+        margin-bottom: 5px;
+    }
+
+    .pch-title {
+        font-size: 13px;
+    }
+
+    .pch-subtitle {
+        font-size: 8px;
+        margin-top: 2px;
+    }
+
+    .pch-section-label {
+        padding-bottom: 3px;
+    }
+
+    .pch-framework {
+        padding-top: 2px;
+        padding-bottom: 1px;
+    }
+
+    section[data-testid="stSidebar"] button {
+        min-height: 22px !important;
+        height: 22px !important;
+        font-size: 8.5px !important;
+    }
+
+    .pch-divider {
+        margin-top: 4px;
+        margin-bottom: 4px;
+    }
+
+    .pch-navigation-divider {
+        margin-top: 5px;
+        margin-bottom: 5px;
     }
 }
