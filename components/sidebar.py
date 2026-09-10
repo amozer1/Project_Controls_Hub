@@ -3,10 +3,15 @@ import streamlit as st
 from config.frameworks import FRAMEWORKS
 
 
+# ==============================================================
+# SIDEBAR ORDER
+# ==============================================================
+
 FRAMEWORK_ORDER = [
     "UU Enterprise Framework",
     "UU DD&B Framework",
 ]
+
 
 NAVIGATION_ITEMS = [
     ("⌂", "Overview"),
@@ -20,41 +25,56 @@ NAVIGATION_ITEMS = [
 ]
 
 
+# ==============================================================
+# SIDEBAR
+# ==============================================================
+
 def render_sidebar():
 
     with st.sidebar:
 
-        # ==========================================================
-        # PROJECT CONTROLS HUB
-        # ==========================================================
+        # ------------------------------------------------------
+        # HEADER
+        # ------------------------------------------------------
 
         st.markdown(
-            "### PROJECT CONTROLS HUB",
-            help="Project Controls Hub",
+            "### PROJECT CONTROLS HUB"
         )
 
-        st.caption("Design Management Intelligence")
+        st.caption(
+            "Design Management Intelligence"
+        )
 
-        st.divider()
+        st.markdown(
+            '<div class="sidebar-rule"></div>',
+            unsafe_allow_html=True,
+        )
 
-        # ==========================================================
+        # ------------------------------------------------------
         # FRAMEWORKS
-        # ==========================================================
+        # ------------------------------------------------------
 
-        st.markdown("**FRAMEWORKS**")
+        st.markdown(
+            '<div class="sidebar-section-title">FRAMEWORKS</div>',
+            unsafe_allow_html=True,
+        )
 
         for framework_index, framework in enumerate(FRAMEWORK_ORDER):
 
             if framework not in FRAMEWORKS:
                 continue
 
-            # Framework separator
+            # Framework separation
             if framework_index > 0:
-                st.divider()
+                st.markdown(
+                    '<div class="sidebar-rule sidebar-rule-small"></div>',
+                    unsafe_allow_html=True,
+                )
 
-            # Framework name
+            # Framework heading
             st.markdown(
-                f"**{framework}**"
+                f'<div class="framework-title">{framework}</div>',
+                unsafe_allow_html=True,
             )
 
             # Assets
@@ -77,13 +97,19 @@ def render_sidebar():
                     args=(framework, asset),
                 )
 
-        # ==========================================================
+        # ------------------------------------------------------
         # NAVIGATION
-        # ==========================================================
+        # ------------------------------------------------------
 
-        st.divider()
+        st.markdown(
+            '<div class="sidebar-rule"></div>',
+            unsafe_allow_html=True,
+        )
 
-        st.markdown("**NAVIGATION**")
+        st.markdown(
+            '<div class="sidebar-section-title">NAVIGATION</div>',
+            unsafe_allow_html=True,
+        )
 
         for icon, item in NAVIGATION_ITEMS:
 
@@ -101,24 +127,41 @@ def render_sidebar():
                 args=(item,),
             )
 
-        # ==========================================================
-        # USER
-        # ==========================================================
+        # ------------------------------------------------------
+        # PROFILE
+        # ------------------------------------------------------
 
-        st.divider()
+        st.markdown(
+            '<div class="sidebar-rule"></div>',
+            unsafe_allow_html=True,
+        )
 
         profile_col1, profile_col2 = st.columns(
-            [1, 3],
+            [1, 4],
             vertical_alignment="center",
         )
 
         with profile_col1:
-            st.markdown("**JS**")
+            st.markdown(
+                '<div class="profile-initials">JS</div>',
+                unsafe_allow_html=True,
+            )
 
         with profile_col2:
-            st.markdown("**John Smith**")
-            st.caption("Design Manager")
+            st.markdown(
+                '<div class="profile-name">John Smith</div>',
+                unsafe_allow_html=True,
+            )
 
+            st.markdown(
+                '<div class="profile-role">Design Manager</div>',
+                unsafe_allow_html=True,
+            )
+
+
+# ==============================================================
+# SELECTION HANDLERS
+# ==============================================================
 
 def _select_asset(framework, asset):
 
