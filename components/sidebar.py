@@ -3,10 +3,6 @@ import streamlit as st
 from config.frameworks import FRAMEWORKS
 
 
-# ============================================================
-# DISPLAY ORDER
-# ============================================================
-
 FRAMEWORK_ORDER = [
     "UU Enterprise Framework",
     "UU DD&B Framework",
@@ -14,37 +10,33 @@ FRAMEWORK_ORDER = [
 
 
 NAVIGATION_ITEMS = [
-    ("⌂", "Overview"),
-    ("▦", "Programme"),
-    ("◈", "Delivery & Programme"),
-    ("◇", "Communications"),
-    ("▤", "Documents"),
-    ("✦", "Intelligence"),
-    ("▥", "Reports"),
-    ("⚙", "Settings"),
+    "Overview",
+    "Programme",
+    "Delivery & Programme",
+    "Communications",
+    "Documents",
+    "Intelligence",
+    "Reports",
+    "Settings",
 ]
 
-
-# ============================================================
-# SIDEBAR
-# ============================================================
 
 def render_sidebar():
 
     with st.sidebar:
 
-        # ----------------------------------------------------
+        # =====================================================
         # PROJECT CONTROLS HUB
-        # ----------------------------------------------------
+        # =====================================================
 
         st.markdown("## PROJECT CONTROLS HUB")
         st.caption("Design Management Intelligence")
 
         st.divider()
 
-        # ----------------------------------------------------
+        # =====================================================
         # FRAMEWORKS
-        # ----------------------------------------------------
+        # =====================================================
 
         st.markdown("**FRAMEWORKS**")
 
@@ -67,28 +59,33 @@ def render_sidebar():
                     == asset
                 )
 
+                if selected:
+                    button_type = "primary"
+                else:
+                    button_type = "secondary"
+
                 st.button(
                     asset,
                     key=f"asset_{framework}_{asset}",
                     use_container_width=True,
-                    type="primary" if selected else "secondary",
+                    type=button_type,
                     on_click=_select_asset,
                     args=(framework, asset),
                 )
 
-            # Separator between frameworks
+            # Space between frameworks only
             if framework_index < len(FRAMEWORK_ORDER) - 1:
-                st.divider()
+                st.markdown("")
 
-        # ----------------------------------------------------
+        # =====================================================
         # NAVIGATION
-        # ----------------------------------------------------
+        # =====================================================
 
         st.divider()
 
         st.markdown("**NAVIGATION**")
 
-        for icon, item in NAVIGATION_ITEMS:
+        for item in NAVIGATION_ITEMS:
 
             selected = (
                 st.session_state.get("selected_navigation")
@@ -96,31 +93,13 @@ def render_sidebar():
             )
 
             st.button(
-                f"{icon}  {item}",
+                item,
                 key=f"navigation_{item}",
                 use_container_width=True,
                 type="primary" if selected else "secondary",
                 on_click=_select_navigation,
                 args=(item,),
             )
-
-        # ----------------------------------------------------
-        # PROFILE
-        # ----------------------------------------------------
-
-        st.divider()
-
-        profile_col1, profile_col2 = st.columns(
-            [1, 4],
-            vertical_alignment="center",
-        )
-
-        with profile_col1:
-            st.markdown("**JS**")
-
-        with profile_col2:
-            st.markdown("**John Smith**")
-            st.caption("Design Manager")
 
 
 # ============================================================
@@ -131,8 +110,6 @@ def _select_asset(framework, asset):
 
     st.session_state.selected_framework = framework
     st.session_state.selected_asset = asset
-
-    # Reset navigation when changing project
     st.session_state.selected_navigation = "Overview"
 
 
