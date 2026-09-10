@@ -1,9 +1,8 @@
 import streamlit as st
 from config.frameworks import FRAMEWORKS
 
-
 # ==========================================================
-# NAVIGATION ITEMS
+# NAVIGATION
 # ==========================================================
 
 NAVIGATION_ITEMS = [
@@ -16,20 +15,6 @@ NAVIGATION_ITEMS = [
     ("Reports", "▥"),
     ("Settings", "⚙"),
 ]
-
-
-# ==========================================================
-# SESSION DEFAULTS
-# ==========================================================
-
-if "selected_framework" not in st.session_state:
-    st.session_state.selected_framework = "UU DD&B Framework"
-
-if "selected_asset" not in st.session_state:
-    st.session_state.selected_asset = "Ferry PS"
-
-if "selected_navigation" not in st.session_state:
-    st.session_state.selected_navigation = "Overview"
 
 
 # ==========================================================
@@ -51,174 +36,237 @@ def _select_navigation(item):
 # ==========================================================
 
 def load_sidebar_css():
+    css = """
+    <style>
 
-    st.markdown(
-        """
-        <style>
+    section[data-testid="stSidebar"]{
+        min-width:320px !important;
+        max-width:320px !important;
 
-        /* --------------------------------------------------
-        Sidebar Width
-        -------------------------------------------------- */
+        background:
+            radial-gradient(
+                circle at top left,
+                #12367b 0%,
+                #08245a 35%,
+                #041332 100%
+            ) !important;
+    }
 
-        section[data-testid="stSidebar"]{
-            min-width:320px !important;
-            max-width:320px !important;
+    section[data-testid="stSidebar"] > div{
+        padding:16px !important;
+    }
 
-            background:
-                radial-gradient(
-                    circle at top left,
-                    #10367d 0%,
-                    #09255b 35%,
-                    #041335 100%
-                ) !important;
+    [data-testid="stVerticalBlockBorderWrapper"]{
+        background:rgba(10,25,65,.75) !important;
+        border:1px solid rgba(255,255,255,.08) !important;
+        border-radius:14px !important;
+        padding:14px !important;
+        margin-bottom:14px !important;
+    }
 
-            border-right:1px solid rgba(255,255,255,.08);
-        }
+    .hub-header{
+        display:flex;
+        align-items:center;
+        gap:12px;
+    }
 
-        section[data-testid="stSidebar"] > div{
-            padding:18px 14px !important;
-        }
+    .hub-logo{
+        width:52px;
+        height:52px;
 
-        /* --------------------------------------------------
-        Cards
-        -------------------------------------------------- */
+        border-radius:12px;
 
-        section[data-testid="stSidebar"]
-        [data-testid="stVerticalBlockBorderWrapper"]{
+        background:
+            linear-gradient(
+                135deg,
+                #22d68a,
+                #2967ff
+            );
 
-            background:rgba(10,29,73,.76) !important;
+        display:flex;
+        align-items:center;
+        justify-content:center;
 
-            border:1px solid rgba(103,147,255,.12) !important;
+        color:white;
+        font-size:22px;
+    }
 
-            border-radius:14px !important;
+    .hub-title{
+        color:white;
+        font-size:18px;
+        font-weight:700;
+        line-height:20px;
+    }
 
-            padding:14px !important;
+    .hub-subtitle{
+        color:#9bb3d9;
+        font-size:11px;
+        margin-top:4px;
+    }
 
-            margin-bottom:14px !important;
+    .section-title{
+        color:#c0d2ff;
+        font-size:11px;
+        font-weight:700;
+        letter-spacing:1px;
+        text-transform:uppercase;
+        margin-bottom:10px;
+    }
 
-            backdrop-filter:blur(12px);
+    .stButton > button{
+        width:100% !important;
+        min-height:40px !important;
 
-            box-shadow:
-                inset 0 1px rgba(255,255,255,.03),
-                0 8px 22px rgba(0,0,0,.25);
-        }
+        border-radius:10px !important;
 
-        /* --------------------------------------------------
-        Hub
-        -------------------------------------------------- */
+        text-align:left !important;
 
-        .hub-header{
-            display:flex;
-            align-items:center;
-            gap:14px;
-        }
+        display:flex !important;
+        justify-content:flex-start !important;
 
-        .hub-logo{
-            width:52px;
-            height:52px;
+        font-size:13px !important;
+    }
 
-            border-radius:14px;
+    .stButton > button[kind="secondary"]{
+        background:transparent !important;
+        border:1px solid transparent !important;
+        color:#dce5f8 !important;
+    }
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #27db89,
-                    #2869ff
-                );
+    .stButton > button[kind="secondary"]:hover{
+        background:rgba(255,255,255,.05) !important;
+        border:1px solid rgba(255,255,255,.08) !important;
+    }
 
-            display:flex;
-            align-items:center;
-            justify-content:center;
+    .stButton > button[kind="primary"]{
+        background:
+            linear-gradient(
+                90deg,
+                rgba(38,95,255,.55),
+                rgba(38,95,255,.15)
+            ) !important;
 
-            font-size:24px;
-            color:white;
-        }
+        border:1px solid rgba(90,145,255,.35) !important;
+        color:white !important;
+    }
 
-        .hub-title{
-            color:white;
+    .avatar{
+        width:44px;
+        height:44px;
 
-            font-size:20px;
+        border-radius:50%;
 
-            font-weight:700;
+        background:
+            linear-gradient(
+                135deg,
+                #3366ff,
+                #112a70
+            );
 
-            line-height:22px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
 
-            margin:0;
-        }
+        color:white;
+        font-weight:700;
+    }
 
-        .hub-subtitle{
-            color:#93add9;
+    .user-name{
+        color:white;
+        font-size:13px;
+        font-weight:600;
+        margin-top:4px;
+    }
 
-            font-size:11px;
+    .user-role{
+        color:#90a7cd;
+        font-size:11px;
+    }
 
-            margin-top:4px;
-        }
+    </style>
+    """
 
-        /* --------------------------------------------------
-        Section Labels
-        -------------------------------------------------- */
+    st.markdown(css, unsafe_allow_html=True)
 
-        .section-title{
-            color:#bdd0f8;
 
-            font-size:11px;
+# ==========================================================
+# SIDEBAR
+# ==========================================================
 
-            font-weight:700;
+def render_sidebar():
+    load_sidebar_css()
 
-            text-transform:uppercase;
+    with st.sidebar:
 
-            letter-spacing:1px;
+        # HUB
 
-            margin-bottom:10px;
-        }
+        with st.container(border=True):
 
-        /* --------------------------------------------------
-        Buttons
-        -------------------------------------------------- */
+            st.markdown(
+                """
+                <div class="hub-header">
 
-        .stButton{
-            width:100%;
-        }
+                    <div class="hub-logo">
+                        ⬢
+                    </div>
 
-        .stButton > button{
+                    <div>
+                        <div class="hub-title">
+                            PROJECT CONTROLS HUB
+                        </div>
 
-            width:100% !important;
+                        <div class="hub-subtitle">
+                            Design Management Intelligence
+                        </div>
+                    </div>
 
-            min-height:40px !important;
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
 
-            border-radius:10px !important;
+        # UU ENTERPRISE
 
-            display:flex !important;
+        with st.container(border=True):
 
-            justify-content:flex-start !important;
+            st.markdown(
+                '<div class="section-title">UU Enterprise Framework</div>',
+                unsafe_allow_html=True,
+            )
 
-            align-items:center !important;
+            for asset in FRAMEWORKS.get("UU Enterprise Framework", []):
+                selected = (
+                        st.session_state.get("selected_framework")
+                        == "UU Enterprise Framework"
+                        and
+                        st.session_state.get("selected_asset") == asset
+                )
 
-            padding-left:14px !important;
+                st.button(
+                    f"{'●' if selected else '○'}  {asset}",
+                    key=f"enterprise_{asset}",
+                    type="primary" if selected else "secondary",
+                    use_container_width=True,
+                    on_click=_select_asset,
+                    args=("UU Enterprise Framework", asset),
+                )
 
-            text-align:left !important;
+        # DD&B
 
-            font-size:13px !important;
+        with st.container(border=True):
 
-            transition:.2s;
-        }
+            st.markdown(
+                '<div class="section-title">UU DD&B Framework</div>',
+                unsafe_allow_html=True,
+            )
 
-        .stButton > button p{
-            text-align:left !important;
-            width:100%;
-        }
+            for asset in FRAMEWORKS.get("UU DD&B Framework", []):
+                selected = (
+                        st.session_state.get("selected_framework")
+                        == "UU DD&B Framework"
+                        and
+                        st.session_state.get("selected_asset") == asset
+                )
 
-        .stButton > button[kind="secondary"]{
-
-            background:transparent !important;
-
-            border:1px solid transparent !important;
-
-            color:#d3def4 !important;
-        }
-
-        .stButton > button[kind="secondary"]:hover{
-
-            background:rgba(255,255,255,.05) !important;
-
-            border-color:rgba(255,255,255,.08) !important;
+                st.button(
+                    f"{'●' if selected else '○'}  {asset}",
