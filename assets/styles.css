@@ -5,11 +5,11 @@
 
 
 /* =========================================================
-   SIDEBAR CONTAINER
+   SIDEBAR
    ========================================================= */
 
 section[data-testid="stSidebar"] {
-    background: #0b1220;
+    background-color: #0b1220;
     border-right: 1px solid #1d293b;
 }
 
@@ -18,11 +18,11 @@ section[data-testid="stSidebar"] {
     }
 
     section[data-testid="stSidebar"] .block-container {
-        padding: 14px 12px 8px 12px !important;
+        padding: 12px 12px 7px 12px !important;
     }
 
 
-    /* Keep sidebar content compact and prevent unnecessary scroll */
+    /* Remove Streamlit vertical gaps */
     section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] {
         gap: 0 !important;
     }
@@ -33,9 +33,9 @@ section[data-testid="stSidebar"] {
    ========================================================= */
 
 .pch-header {
-    padding: 2px 7px 12px 7px;
+    padding: 2px 7px 11px 7px;
+    margin-bottom: 10px;
     border-bottom: 1px solid #263348;
-    margin-bottom: 11px;
 }
 
 .pch-title {
@@ -57,11 +57,11 @@ section[data-testid="stSidebar"] {
 
 
 /* =========================================================
-   SECTION LABEL
+   SECTION LABELS
    ========================================================= */
 
 .pch-section-label {
-    color: #65748b;
+    color: #68778e;
     font-size: 8px;
     font-weight: 700;
     letter-spacing: 1.4px;
@@ -75,22 +75,22 @@ section[data-testid="stSidebar"] {
    ========================================================= */
 
 .pch-framework {
-    color: #b8c4d5;
+    color: #c0cad8;
     font-size: 9px;
     font-weight: 600;
-    letter-spacing: 0.2px;
+    letter-spacing: 0.15px;
     padding: 5px 7px 3px 7px;
     line-height: 1.15;
 }
 
 
 /* =========================================================
-   HORIZONTAL SEPARATORS
+   HORIZONTAL LINES
    ========================================================= */
 
 .pch-divider {
     height: 1px;
-    background: #202d40;
+    background-color: #202d40;
     margin: 7px 5px 8px 5px;
 }
 
@@ -101,7 +101,17 @@ section[data-testid="stSidebar"] {
 
 
 /* =========================================================
-   ALL SIDEBAR BUTTONS
+   STREAMLIT BUTTON CONTAINER
+   ========================================================= */
+
+section[data-testid="stSidebar"] .stButton {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+
+/* =========================================================
+   ALL BUTTONS
    ========================================================= */
 
 section[data-testid="stSidebar"] button {
@@ -110,6 +120,7 @@ section[data-testid="stSidebar"] button {
     padding: 3px 9px !important;
     margin: 1px 0 !important;
     border-radius: 4px !important;
+    font-family: inherit !important;
     font-size: 10px !important;
     font-weight: 500 !important;
     line-height: 1 !important;
@@ -119,51 +130,50 @@ section[data-testid="stSidebar"] button {
 
 
     /* =========================================================
-   PROJECT / ASSET BUTTONS
+   NORMAL BUTTON
    ========================================================= */
 
-    /* Normal project */
     section[data-testid="stSidebar"] button[kind="secondary"] {
-        background: transparent !important;
+        background-color: transparent !important;
         border: 1px solid transparent !important;
         color: #aebbd0 !important;
         text-align: left !important;
     }
 
-        /* Hover */
+
+        /* =========================================================
+   NORMAL BUTTON HOVER
+   ========================================================= */
+
         section[data-testid="stSidebar"] button[kind="secondary"]:hover {
-            background: #131f31 !important;
+            background-color: #131f31 !important;
             border-color: #26364e !important;
-            color: #edf3fa !important;
+            color: #f1f5fa !important;
         }
 
 
     /* =========================================================
-   SELECTED ITEM
+   SELECTED BUTTON
    ========================================================= */
 
     section[data-testid="stSidebar"] button[kind="primary"] {
-        background: #155fbd !important;
+        background-color: #155fbd !important;
         border: 1px solid #1b70d4 !important;
         color: #ffffff !important;
         font-weight: 600 !important;
         text-align: left !important;
     }
 
-        section[data-testid="stSidebar"] button[kind="primary"]:hover {
-            background: #196bc9 !important;
-            border-color: #2879d8 !important;
-        }
 
-
-/* =========================================================
-   NAVIGATION BUTTONS
+        /* =========================================================
+   SELECTED BUTTON HOVER
    ========================================================= */
 
-section[data-testid="stSidebar"] .pch-section-label ~ div button {
-    min-height: 28px !important;
-    height: 28px !important;
-}
+        section[data-testid="stSidebar"] button[kind="primary"]:hover {
+            background-color: #196bc9 !important;
+            border-color: #2879d8 !important;
+            color: #ffffff !important;
+        }
 
 
 /* =========================================================
@@ -172,7 +182,7 @@ section[data-testid="stSidebar"] .pch-section-label ~ div button {
 
 .pch-profile-divider {
     height: 1px;
-    background: #263348;
+    background-color: #263348;
     margin: 9px 5px 8px 5px;
 }
 
@@ -187,12 +197,17 @@ section[data-testid="stSidebar"] .pch-section-label ~ div button {
     padding: 2px 6px 1px 6px;
 }
 
+
+/* =========================================================
+   PROFILE AVATAR
+   ========================================================= */
+
 .pch-avatar {
     width: 29px;
     height: 29px;
     min-width: 29px;
     border-radius: 50%;
-    background: #155fbd;
+    background-color: #155fbd;
     border: 1px solid #2879d8;
     color: #ffffff;
     display: flex;
@@ -201,6 +216,11 @@ section[data-testid="stSidebar"] .pch-section-label ~ div button {
     font-size: 9px;
     font-weight: 700;
 }
+
+
+/* =========================================================
+   PROFILE DETAILS
+   ========================================================= */
 
 .pch-profile-details {
     margin-left: 9px;
@@ -223,26 +243,13 @@ section[data-testid="stSidebar"] .pch-section-label ~ div button {
 
 
 /* =========================================================
-   REMOVE EXCESS STREAMLIT SPACING
-   ========================================================= */
-
-section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] > div {
-    margin-bottom: 0 !important;
-}
-
-section[data-testid="stSidebar"] .stButton {
-    margin-bottom: 0 !important;
-}
-
-
-/* =========================================================
-   SMALL SCREEN SAFETY
+   SMALL SCREEN / LOWER HEIGHT
    ========================================================= */
 
 @media (max-height: 800px) {
 
     section[data-testid="stSidebar"] .block-container {
-        padding-top: 9px !important;
+        padding-top: 8px !important;
         padding-bottom: 4px !important;
     }
 

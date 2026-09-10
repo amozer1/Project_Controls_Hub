@@ -38,18 +38,19 @@ def render_sidebar():
             "UU DD&B Framework",
         ]
 
-        for index, framework in enumerate(framework_order):
+        for framework_index, framework in enumerate(framework_order):
 
             if framework not in FRAMEWORKS:
                 continue
 
             # Separator between frameworks
-            if index > 0:
+            if framework_index > 0:
                 st.markdown(
                     '<div class="pch-divider"></div>',
                     unsafe_allow_html=True,
                 )
 
+            # Framework name
             st.markdown(
                 f"""
                 <div class="pch-framework">
@@ -59,6 +60,7 @@ def render_sidebar():
                 unsafe_allow_html=True,
             )
 
+            # Assets
             for asset in FRAMEWORKS[framework]:
 
                 selected = (
@@ -83,6 +85,10 @@ def render_sidebar():
             '<div class="pch-divider pch-navigation-divider"></div>',
             unsafe_allow_html=True,
         )
+
+        # =====================================================
+        # NAVIGATION TITLE
+        # =====================================================
 
         st.markdown(
             '<div class="pch-section-label">NAVIGATION</div>',
@@ -131,12 +137,8 @@ def render_sidebar():
                 <div class="pch-avatar">JS</div>
 
                 <div class="pch-profile-details">
-                    <div class="pch-profile-name">
-                        John Smith
-                    </div>
-                    <div class="pch-profile-role">
-                        Design Manager
-                    </div>
+                    <div class="pch-profile-name">John Smith</div>
+                    <div class="pch-profile-role">Design Manager</div>
                 </div>
             </div>
             """,
