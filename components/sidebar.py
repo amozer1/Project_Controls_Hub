@@ -14,7 +14,7 @@ FRAMEWORK_ORDER = [
 
 NAVIGATION_ITEMS = [
     ("Overview", "⌂"),
-    ("Programme", "▦"),
+    ("Programme", "▤"),
     ("Delivery & Programme", "▱"),
     ("Communications", "◌"),
     ("Documents", "□"),
@@ -25,152 +25,87 @@ NAVIGATION_ITEMS = [
 
 
 # ============================================================
-# SIDEBAR
+# SIDEBAR STYLE
 # ============================================================
 
-def render_sidebar():
-
-    # --------------------------------------------------------
-    # CSS
-    # --------------------------------------------------------
+def _sidebar_css():
 
     st.markdown(
         """
         <style>
 
-        /* ====================================================
+        /* =====================================================
            SIDEBAR
-           ==================================================== */
+           ===================================================== */
 
         section[data-testid="stSidebar"] {
             background: #071a35 !important;
         }
 
         section[data-testid="stSidebar"] > div {
-            padding: 12px 10px !important;
+            padding: 12px !important;
         }
 
 
-        /* ====================================================
-           ALL SIDEBAR BUTTONS
-           ==================================================== */
-
-        section[data-testid="stSidebar"] .stButton {
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-
-        section[data-testid="stSidebar"] .stButton button {
-            width: 100% !important;
-            min-height: 30px !important;
-            height: 30px !important;
-
-            padding: 4px 8px !important;
-            margin: 1px 0 !important;
-
-            border-radius: 5px !important;
-
-            display: flex !important;
-            align-items: center !important;
-            justify-content: flex-start !important;
-
-            text-align: left !important;
-
-            font-size: 12px !important;
-            line-height: 16px !important;
-
-            box-shadow: none !important;
-        }
-
-        section[data-testid="stSidebar"] .stButton button > div {
-            width: 100% !important;
-            display: flex !important;
-            justify-content: flex-start !important;
-        }
-
-        section[data-testid="stSidebar"] .stButton button p {
-            margin: 0 !important;
-            padding: 0 !important;
-            text-align: left !important;
-        }
-
-
-        /* ====================================================
-           NORMAL ROW
-           ==================================================== */
-
-        section[data-testid="stSidebar"]
-        .stButton button[kind="secondary"] {
-            background: transparent !important;
-            border: 1px solid transparent !important;
-            color: #bdcce1 !important;
-        }
-
-        section[data-testid="stSidebar"]
-        .stButton button[kind="secondary"]:hover {
-            background: #102d54 !important;
-            color: #ffffff !important;
-        }
-
-
-        /* ====================================================
+        /* =====================================================
            CARD
-           ==================================================== */
+           ===================================================== */
 
-        .sidebar-card {
-            background: #0b2347;
-            border: 1px solid #193d6a;
+        .pc-card {
+            background: #0b2345;
+            border: 1px solid #23466f;
             border-radius: 8px;
 
-            padding: 9px 8px 8px 8px;
+            padding: 10px;
 
-            margin-bottom: 8px;
+            margin-bottom: 9px;
+
+            width: 100%;
         }
 
 
-        /* ====================================================
-           CARD HEADER
-           ==================================================== */
+        /* =====================================================
+           CARD TITLE
+           ===================================================== */
 
-        .card-title {
-            color: #e2ebf8;
+        .pc-card-title {
+            color: #e7eef9;
 
-            font-size: 11px;
-            font-weight: 650;
+            font-size: 12px;
+            font-weight: 600;
 
-            line-height: 15px;
+            line-height: 16px;
 
-            padding: 0 2px 7px 2px;
+            padding-bottom: 7px;
+            margin-bottom: 5px;
 
-            margin-bottom: 3px;
-
-            border-bottom: 1px solid #21466f;
+            border-bottom: 1px solid #23466f;
 
             text-align: left;
         }
 
 
-        /* ====================================================
+        /* =====================================================
            HUB CARD
-           ==================================================== */
+           ===================================================== */
 
-        .hub-title {
+        .pc-hub-title {
             color: #ffffff;
 
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 700;
 
-            line-height: 18px;
+            line-height: 19px;
 
             text-align: left;
         }
 
-        .hub-subtitle {
-            color: #91a9cc;
+        .pc-hub-subtitle {
+            color: #91a9cb;
 
             font-size: 10px;
 
-            line-height: 13px;
+            line-height: 14px;
 
             margin-top: 3px;
 
@@ -178,25 +113,98 @@ def render_sidebar():
         }
 
 
-        /* ====================================================
-           USER
-           ==================================================== */
+        /* =====================================================
+           BUTTONS
+           ===================================================== */
 
-        .user-block {
-            padding: 3px 4px 0 4px;
+        section[data-testid="stSidebar"] .stButton {
+            width: 100%;
+            margin: 0 !important;
+            padding: 0 !important;
         }
 
-        .user-name {
-            color: #e4ecf8;
+        section[data-testid="stSidebar"] .stButton > button {
+
+            width: 100% !important;
+
+            min-height: 29px !important;
+            height: 29px !important;
+
+            margin: 1px 0 !important;
+
+            padding: 3px 7px !important;
+
+            border-radius: 5px !important;
+
+            background: transparent !important;
+
+            border: 1px solid transparent !important;
+
+            color: #c5d3e7 !important;
+
+            font-size: 12px !important;
+
+            line-height: 16px !important;
+
+            text-align: left !important;
+
+            justify-content: flex-start !important;
+
+            box-shadow: none !important;
+        }
+
+        section[data-testid="stSidebar"]
+        .stButton > button:hover {
+
+            background: #12315b !important;
+
+            color: #ffffff !important;
+
+            border-color: #234e80 !important;
+        }
+
+        section[data-testid="stSidebar"]
+        .stButton > button > div {
+
+            width: 100% !important;
+
+            justify-content: flex-start !important;
+
+            text-align: left !important;
+        }
+
+        section[data-testid="stSidebar"]
+        .stButton > button p {
+
+            margin: 0 !important;
+            padding: 0 !important;
+
+            text-align: left !important;
+        }
+
+
+        /* =====================================================
+           PROJECT INDENT
+           ===================================================== */
+
+        .pc-project {
+            padding-left: 4px;
+        }
+
+
+        /* =====================================================
+           USER
+           ===================================================== */
+
+        .pc-user {
+            color: #e5edf8;
             font-size: 12px;
             font-weight: 600;
-            line-height: 15px;
         }
 
-        .user-role {
-            color: #879fc1;
+        .pc-role {
+            color: #879fc0;
             font-size: 10px;
-            line-height: 13px;
         }
 
         </style>
@@ -205,19 +213,28 @@ def render_sidebar():
     )
 
 
+# ============================================================
+# SIDEBAR
+# ============================================================
+
+def render_sidebar():
+
+    _sidebar_css()
+
     with st.sidebar:
 
         # ====================================================
-        # PROJECT CONTROLS HUB
+        # PROJECT CONTROLS HUB CARD
         # ====================================================
 
         st.markdown(
             """
-            <div class="sidebar-card">
-                <div class="hub-title">
+            <div class="pc-card">
+                <div class="pc-hub-title">
                     PROJECT CONTROLS HUB
                 </div>
-                <div class="hub-subtitle">
+
+                <div class="pc-hub-subtitle">
                     Design Management Intelligence
                 </div>
             </div>
@@ -227,80 +244,103 @@ def render_sidebar():
 
 
         # ====================================================
-        # UU ENTERPRISE FRAMEWORK
-        # ====================================================
-
-        with st.container():
-
-            st.markdown(
-                """
-                <div class="sidebar-card">
-                    <div class="card-title">
-                        UU Enterprise Framework
-                    </div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-
-            for asset in FRAMEWORKS.get(
-                "UU Enterprise Framework",
-                []
-            ):
-
-                st.button(
-                    f"○  {asset}",
-                    key=f"enterprise_{asset}",
-                    use_container_width=True,
-                    type="secondary",
-                    on_click=_select_asset,
-                    args=("UU Enterprise Framework", asset),
-                )
-
-
-        # ====================================================
-        # UU DD&B FRAMEWORK
-        # ====================================================
-
-        with st.container():
-
-            st.markdown(
-                """
-                <div class="sidebar-card">
-                    <div class="card-title">
-                        UU DD&B Framework
-                    </div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-
-            for asset in FRAMEWORKS.get(
-                "UU DD&B Framework",
-                []
-            ):
-
-                st.button(
-                    f"○  {asset}",
-                    key=f"ddb_{asset}",
-                    use_container_width=True,
-                    type="secondary",
-                    on_click=_select_asset,
-                    args=("UU DD&B Framework", asset),
-                )
-
-
-        # ====================================================
-        # NAVIGATION
+        # ENTERPRISE CARD
         # ====================================================
 
         st.markdown(
             """
-            <div class="sidebar-card">
-                <div class="card-title">
+            <div class="pc-card">
+                <div class="pc-card-title">
+                    UU Enterprise Framework
+                </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+        for asset in FRAMEWORKS.get(
+            "UU Enterprise Framework",
+            []
+        ):
+
+            st.markdown(
+                '<div class="pc-project">',
+                unsafe_allow_html=True,
+            )
+
+            st.button(
+                f"○  {asset}",
+                key=f"enterprise_{asset}",
+                use_container_width=True,
+                type="secondary",
+                on_click=_select_asset,
+                args=("UU Enterprise Framework", asset),
+            )
+
+            st.markdown(
+                "</div>",
+                unsafe_allow_html=True,
+            )
+
+        st.markdown(
+            "</div>",
+            unsafe_allow_html=True,
+        )
+
+
+        # ====================================================
+        # DD&B CARD
+        # ====================================================
+
+        st.markdown(
+            """
+            <div class="pc-card">
+                <div class="pc-card-title">
+                    UU DD&B Framework
+                </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+        for asset in FRAMEWORKS.get(
+            "UU DD&B Framework",
+            []
+        ):
+
+            st.markdown(
+                '<div class="pc-project">',
+                unsafe_allow_html=True,
+            )
+
+            st.button(
+                f"○  {asset}",
+                key=f"ddb_{asset}",
+                use_container_width=True,
+                type="secondary",
+                on_click=_select_asset,
+                args=("UU DD&B Framework", asset),
+            )
+
+            st.markdown(
+                "</div>",
+                unsafe_allow_html=True,
+            )
+
+        st.markdown(
+            "</div>",
+            unsafe_allow_html=True,
+        )
+
+
+        # ====================================================
+        # NAVIGATION CARD
+        # ====================================================
+
+        st.markdown(
+            """
+            <div class="pc-card">
+                <div class="pc-card-title">
                     NAVIGATION
                 </div>
-            </div>
             """,
             unsafe_allow_html=True,
         )
@@ -316,35 +356,36 @@ def render_sidebar():
                 args=(item,),
             )
 
+        st.markdown(
+            "</div>",
+            unsafe_allow_html=True,
+        )
+
 
         # ====================================================
         # USER
         # ====================================================
 
         st.markdown(
-            '<div class="user-block">',
+            """
+            <div style="
+                padding: 5px 4px;
+                color: #e5edf8;
+                font-size: 12px;
+            ">
+                <b>JS</b>&nbsp;&nbsp; John Smith
+                <br>
+                <span style="
+                    color:#879fc0;
+                    font-size:10px;
+                    margin-left:28px;
+                ">
+                    Design Manager
+                </span>
+            </div>
+            """,
             unsafe_allow_html=True,
         )
-
-        user_col1, user_col2 = st.columns(
-            [0.8, 3.2],
-            gap="small",
-        )
-
-        with user_col1:
-            st.markdown("**JS**")
-
-        with user_col2:
-            st.markdown(
-                '<div class="user-name">John Smith</div>',
-                unsafe_allow_html=True,
-            )
-            st.markdown(
-                '<div class="user-role">Design Manager</div>',
-                unsafe_allow_html=True,
-            )
-
-        st.markdown("</div>", unsafe_allow_html=True)
 
 
 # ============================================================
