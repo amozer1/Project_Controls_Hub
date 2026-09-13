@@ -185,4 +185,4 @@ def render_sidebar():
                 on_click=select_navigation,
                 args=(item,),
             )
-```
+
