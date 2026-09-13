@@ -1,5 +1,4 @@
 import streamlit as st
-
 from config.frameworks import FRAMEWORKS
 
 
@@ -66,17 +65,13 @@ def select_home():
 # ==========================================================
 
 def render_sidebar():
-
     with st.sidebar:
 
         # --------------------------------------------------
         # BRAND
         # --------------------------------------------------
 
-        st.image(
-            "assets/logo.png",
-            width=42,
-        )
+        st.image("assets/logo.png", width=42)
 
         st.button(
             "PROJECT CONTROLS HUB",
@@ -86,12 +81,8 @@ def render_sidebar():
             on_click=select_home,
         )
 
-        st.caption(
-            "Design Management Intelligence"
-        )
-
+        st.caption("Design Management Intelligence")
         st.divider()
-
 
         # --------------------------------------------------
         # FRAMEWORKS
@@ -99,86 +90,56 @@ def render_sidebar():
 
         st.caption("FRAMEWORKS")
 
+        for framework_index, framework in enumerate(FRAMEWORK_ORDER):
 
-        for framework_index, framework in enumerate(
-            FRAMEWORK_ORDER
-        ):
-
-            framework_data = FRAMEWORKS.get(
-                framework,
-                {}
+            framework_data = FRAMEWORKS.get(framework, {})
+            assets = (
+                framework_data.get("assets", [])
+                if isinstance(framework_data, dict)
+                else framework_data
             )
-
-            if isinstance(framework_data, dict):
-                assets = framework_data.get(
-                    "assets",
-                    []
-                )
-            else:
-                assets = framework_data
 
             if not assets:
                 continue
 
-
             # Framework heading
-            st.markdown(
-                f"**{framework}**"
-            )
-
+            st.markdown(f"**{framework}**")
 
             # Assets
             for asset in assets:
-
                 selected = (
                     st.session_state.selected_framework == framework
-                    and
-                    st.session_state.selected_asset == asset
+                    and st.session_state.selected_asset == asset
                 )
 
                 st.button(
                     asset,
                     key=f"asset_{framework}_{asset}",
                     use_container_width=True,
-                    type=(
-                        "primary"
-                        if selected
-                        else "secondary"
-                    ),
+                    type="primary" if selected else "secondary",
                     on_click=select_asset,
                     args=(framework, asset),
                 )
 
-
             # Separator between frameworks
             if framework_index < len(FRAMEWORK_ORDER) - 1:
                 st.divider()
-
 
         # --------------------------------------------------
         # NAVIGATION
         # --------------------------------------------------
 
         st.divider()
-
         st.caption("NAVIGATION")
 
-
         for item in NAVIGATION_ITEMS:
-
-            selected = (
-                st.session_state.selected_navigation == item
-            )
+            selected = st.session_state.selected_navigation == item
 
             st.button(
                 item,
                 key=f"navigation_{item}",
                 use_container_width=True,
-                type=(
-                    "primary"
-                    if selected
-                    else "secondary"
-                ),
+                type="primary" if selected else "secondary",
                 on_click=select_navigation,
                 args=(item,),
             )
