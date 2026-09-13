@@ -30,6 +30,20 @@ NAVIGATION_ITEMS = [
 
 
 # ==========================================================
+# SESSION STATE
+# ==========================================================
+
+if "selected_framework" not in st.session_state:
+    st.session_state.selected_framework = "UU Enterprise Framework"
+
+if "selected_asset" not in st.session_state:
+    st.session_state.selected_asset = "Pennington Flash"
+
+if "selected_navigation" not in st.session_state:
+    st.session_state.selected_navigation = "Overview"
+
+
+# ==========================================================
 # CALLBACKS
 # ==========================================================
 
@@ -45,8 +59,13 @@ def _select_navigation(item):
     st.session_state.selected_navigation = item
 
 
+def _select_home():
+
+    st.session_state.selected_navigation = "Overview"
+
+
 # ==========================================================
-# SIDEBAR CSS
+# SIDEBAR STYLE
 # ==========================================================
 
 def load_sidebar_css():
@@ -55,269 +74,93 @@ def load_sidebar_css():
         """
         <style>
 
-        /* ==================================================
-           SIDEBAR
-           ================================================== */
-
+        /* Sidebar width */
         section[data-testid="stSidebar"] {
-            width: 240px !important;
-            min-width: 240px !important;
-            max-width: 240px !important;
-
-            background:
-                linear-gradient(
-                    180deg,
-                    #061a40 0%,
-                    #041633 100%
-                ) !important;
-
-            border-right:
-                1px solid rgba(76, 135, 220, 0.25) !important;
+            width: 250px !important;
+            min-width: 250px !important;
+            max-width: 250px !important;
+            background: #061832 !important;
+            border-right: 1px solid #17345c !important;
         }
 
-
-        /* ==================================================
-           SIDEBAR CONTAINER
-           ================================================== */
-
+        /* Sidebar padding */
         section[data-testid="stSidebar"] > div {
-            padding: 16px 12px 12px 12px !important;
+            padding: 18px 14px 14px 14px !important;
         }
 
-
+        /* Remove excessive widget gaps */
         section[data-testid="stSidebar"]
         [data-testid="stVerticalBlock"] {
-            gap: 0 !important;
+            gap: 0.15rem !important;
         }
 
-
-        /* ==================================================
-           HEADER
-           ================================================== */
-
-        .pch-header {
-            margin: 0 5px 20px 5px;
-            padding-bottom: 16px;
-
-            border-bottom:
-                1px solid rgba(84, 137, 214, 0.28);
-        }
-
-
-        .pch-title {
-            color: #ffffff;
-
-            font-size: 17px;
-            font-weight: 700;
-
-            line-height: 19px;
-
-            margin: 0;
-        }
-
-
-        .pch-subtitle {
-            color: #9bb5df;
-
-            font-size: 10px;
-            line-height: 14px;
-
-            margin-top: 4px;
-        }
-
-
-        /* ==================================================
-           SECTION HEADINGS
-           ================================================== */
-
-        .pch-section {
-            color: #9fb8df;
-
-            font-size: 10px;
-            font-weight: 700;
-
-            letter-spacing: 0.9px;
-
-            margin: 0 5px 8px 5px;
-
-            text-transform: uppercase;
-        }
-
-
-        /* ==================================================
-           FRAMEWORK HEADER
-           ================================================== */
-
-        .pch-framework {
-            height: 34px;
-
-            display: flex;
-            align-items: center;
-
-            padding: 0 9px;
-
-            margin: 0 0 2px 0;
-
-            border-radius: 6px;
-
-            background:
-                rgba(31, 82, 166, 0.25);
-
-            color: #d5e3fb;
-
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-
-        .pch-framework-arrow {
-            color: #72aaff;
-
-            margin-right: 8px;
-
-            font-size: 13px;
-        }
-
-
-        /* ==================================================
-           BUTTON CONTAINER
-           ================================================== */
-
-        section[data-testid="stSidebar"]
-        .stButton {
+        /* All buttons */
+        section[data-testid="stSidebar"] .stButton {
             margin: 0 !important;
             padding: 0 !important;
         }
 
-
-        /* ==================================================
-           BUTTON
-           ================================================== */
-
-        section[data-testid="stSidebar"]
-        .stButton > button {
-
-            height: 34px !important;
-            min-height: 34px !important;
-
+        section[data-testid="stSidebar"] .stButton > button {
             width: 100% !important;
+            min-height: 34px !important;
+            height: 34px !important;
 
-            margin: 0 !important;
-
-            padding:
-                0 9px 0 17px !important;
+            margin: 1px 0 !important;
+            padding: 0 11px !important;
 
             border-radius: 5px !important;
+            border: 1px solid transparent !important;
 
-            border:
-                1px solid transparent !important;
+            background: transparent !important;
 
-            background:
-                transparent !important;
+            color: #c8d5e8 !important;
 
-            color:
-                #d5e0f2 !important;
+            font-size: 12px !important;
+            font-weight: 450 !important;
 
-            font-size:
-                12px !important;
+            text-align: left !important;
+            justify-content: flex-start !important;
 
-            font-weight:
-                450 !important;
-
-            text-align:
-                left !important;
-
-            justify-content:
-                flex-start !important;
-
-            box-shadow:
-                none !important;
+            box-shadow: none !important;
         }
 
-
-        /* ==================================================
-           BUTTON TEXT
-           ================================================== */
-
+        /* Button text */
         section[data-testid="stSidebar"]
         .stButton > button p {
+            width: 100% !important;
+            margin: 0 !important;
 
-            font-size:
-                12px !important;
-
-            margin:
-                0 !important;
-
-            text-align:
-                left !important;
+            text-align: left !important;
+            font-size: 12px !important;
         }
 
-
-        /* ==================================================
-           HOVER
-           ================================================== */
-
+        /* Hover */
         section[data-testid="stSidebar"]
-        .stButton > button[kind="secondary"]:hover {
-
-            background:
-                rgba(45, 103, 204, 0.18) !important;
-
-            border:
-                1px solid rgba(79, 139, 226, 0.16) !important;
-
-            color:
-                #ffffff !important;
+        .stButton > button:hover {
+            background: #102b50 !important;
+            border: 1px solid #1d416e !important;
+            color: #ffffff !important;
         }
 
-
-        /* ==================================================
-           SELECTED
-           ================================================== */
-
+        /* Selected */
         section[data-testid="stSidebar"]
         .stButton > button[kind="primary"] {
-
-            background:
-                linear-gradient(
-                    90deg,
-                    #1556bd 0%,
-                    #10469c 100%
-                ) !important;
-
-            border:
-                1px solid rgba(91, 157, 255, 0.38) !important;
-
-            color:
-                #ffffff !important;
-
-            box-shadow:
-                inset 3px 0 0 #5ba5ff !important;
+            background: #1557a6 !important;
+            border: 1px solid #2c70c4 !important;
+            color: #ffffff !important;
+            font-weight: 600 !important;
         }
 
-
-        /* ==================================================
-           SEPARATOR
-           ================================================== */
-
-        .pch-separator {
-
-            height: 1px;
-
-            margin:
-                9px 5px 10px 5px;
-
-            background:
-                rgba(79, 133, 211, 0.28);
+        /* Section headings */
+        section[data-testid="stSidebar"] .stCaption {
+            color: #7894b8 !important;
+            font-size: 10px !important;
         }
 
-
-        /* ==================================================
-           NAVIGATION SPACING
-           ================================================== */
-
-        .pch-navigation-space {
-            height: 4px;
+        /* Divider */
+        section[data-testid="stSidebar"] hr {
+            margin: 10px 0 !important;
+            border-color: #17345c !important;
         }
 
         </style>
@@ -337,69 +180,45 @@ def render_sidebar():
     with st.sidebar:
 
         # ==================================================
-        # HEADER
+        # BRAND
         # ==================================================
 
-        header_col1, header_col2 = st.columns(
-            [0.72, 2.8],
-            gap="small",
+        st.image(
+            "assets/logo.png",
+            width=42,
         )
 
-        with header_col1:
+        if st.button(
+            "PROJECT CONTROLS HUB",
+            key="project_controls_home",
+            use_container_width=True,
+            type="secondary",
+            on_click=_select_home,
+        ):
+            pass
 
-            st.image(
-                "assets/logo.png",
-                width=44,
-            )
+        st.caption(
+            "Design Management Intelligence"
+        )
 
-        with header_col2:
-
-            st.markdown(
-                """
-                <div class="pch-header">
-
-                    <div class="pch-title">
-                        PROJECT<br>
-                        CONTROLS HUB
-                    </div>
-
-                    <div class="pch-subtitle">
-                        Design Management Intelligence
-                    </div>
-
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
+        st.divider()
 
 
         # ==================================================
         # FRAMEWORKS
         # ==================================================
 
-        st.markdown(
-            '<div class="pch-section">FRAMEWORKS</div>',
-            unsafe_allow_html=True,
-        )
+        st.caption("FRAMEWORKS")
 
 
         for framework_index, framework in enumerate(
             FRAMEWORK_ORDER
         ):
 
-            # ------------------------------------------------
-            # Get framework data
-            # ------------------------------------------------
-
             framework_data = FRAMEWORKS.get(
                 framework,
                 {}
             )
-
-
-            # ------------------------------------------------
-            # Get assets
-            # ------------------------------------------------
 
             if isinstance(framework_data, dict):
 
@@ -413,52 +232,32 @@ def render_sidebar():
                 assets = framework_data
 
 
-            # ------------------------------------------------
-            # Skip empty framework
-            # ------------------------------------------------
-
             if not assets:
                 continue
 
 
-            # ------------------------------------------------
-            # Framework heading
-            # ------------------------------------------------
+            # ----------------------------------------------
+            # Framework name
+            # ----------------------------------------------
 
             st.markdown(
-                f"""
-                <div class="pch-framework">
-
-                    <span class="pch-framework-arrow">
-                        ⌄
-                    </span>
-
-                    <span>
-                        {framework}
-                    </span>
-
-                </div>
-                """,
-                unsafe_allow_html=True,
+                f"**{framework}**"
             )
 
 
-            # ------------------------------------------------
-            # Asset buttons
-            # ------------------------------------------------
+            # ----------------------------------------------
+            # Assets
+            # ----------------------------------------------
 
             for asset in assets:
 
                 selected = (
-                    st.session_state.get(
-                        "selected_framework"
-                    ) == framework
+                    st.session_state.selected_framework
+                    == framework
                     and
-                    st.session_state.get(
-                        "selected_asset"
-                    ) == asset
+                    st.session_state.selected_asset
+                    == asset
                 )
-
 
                 st.button(
                     asset,
@@ -482,52 +281,32 @@ def render_sidebar():
                 )
 
 
-            # ------------------------------------------------
+            # ----------------------------------------------
             # Framework separator
-            # ------------------------------------------------
+            # ----------------------------------------------
 
             if framework_index < len(
                 FRAMEWORK_ORDER
             ) - 1:
 
-                st.markdown(
-                    '<div class="pch-separator"></div>',
-                    unsafe_allow_html=True,
-                )
+                st.divider()
 
 
         # ==================================================
-        # NAVIGATION SPACE
+        # NAVIGATION
         # ==================================================
 
-        st.markdown(
-            '<div class="pch-navigation-space"></div>',
-            unsafe_allow_html=True,
-        )
+        st.divider()
 
+        st.caption("NAVIGATION")
 
-        # ==================================================
-        # NAVIGATION HEADING
-        # ==================================================
-
-        st.markdown(
-            '<div class="pch-section">NAVIGATION</div>',
-            unsafe_allow_html=True,
-        )
-
-
-        # ==================================================
-        # NAVIGATION BUTTONS
-        # ==================================================
 
         for item in NAVIGATION_ITEMS:
 
             selected = (
-                st.session_state.get(
-                    "selected_navigation"
-                ) == item
+                st.session_state.selected_navigation
+                == item
             )
-
 
             st.button(
                 item,
