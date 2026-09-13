@@ -60,7 +60,6 @@ def load_sidebar_css():
            ================================================== */
 
         section[data-testid="stSidebar"] {
-
             width: 240px !important;
             min-width: 240px !important;
             max-width: 240px !important;
@@ -78,21 +77,16 @@ def load_sidebar_css():
 
 
         /* ==================================================
-           SIDEBAR INNER CONTAINER
+           SIDEBAR CONTAINER
            ================================================== */
 
         section[data-testid="stSidebar"] > div {
-
-            padding:
-                16px 12px 12px 12px !important;
+            padding: 16px 12px 12px 12px !important;
         }
 
 
-        /* Remove excessive Streamlit vertical gaps */
-
         section[data-testid="stSidebar"]
         [data-testid="stVerticalBlock"] {
-
             gap: 0 !important;
         }
 
@@ -102,12 +96,8 @@ def load_sidebar_css():
            ================================================== */
 
         .pch-header {
-
-            margin:
-                0 5px 20px 5px;
-
-            padding-bottom:
-                16px;
+            margin: 0 5px 20px 5px;
+            padding-bottom: 16px;
 
             border-bottom:
                 1px solid rgba(84, 137, 214, 0.28);
@@ -115,37 +105,24 @@ def load_sidebar_css():
 
 
         .pch-title {
+            color: #ffffff;
 
-            color:
-                #ffffff;
+            font-size: 17px;
+            font-weight: 700;
 
-            font-size:
-                17px;
+            line-height: 19px;
 
-            font-weight:
-                700;
-
-            line-height:
-                19px;
-
-            margin:
-                0;
+            margin: 0;
         }
 
 
         .pch-subtitle {
+            color: #9bb5df;
 
-            color:
-                #9bb5df;
+            font-size: 10px;
+            line-height: 14px;
 
-            font-size:
-                10px;
-
-            line-height:
-                14px;
-
-            margin-top:
-                4px;
+            margin-top: 4px;
         }
 
 
@@ -154,24 +131,16 @@ def load_sidebar_css():
            ================================================== */
 
         .pch-section {
+            color: #9fb8df;
 
-            color:
-                #9fb8df;
+            font-size: 10px;
+            font-weight: 700;
 
-            font-size:
-                10px;
+            letter-spacing: 0.9px;
 
-            font-weight:
-                700;
+            margin: 0 5px 8px 5px;
 
-            letter-spacing:
-                0.9px;
-
-            margin:
-                0 5px 8px 5px;
-
-            text-transform:
-                uppercase;
+            text-transform: uppercase;
         }
 
 
@@ -180,87 +149,65 @@ def load_sidebar_css():
            ================================================== */
 
         .pch-framework {
+            height: 34px;
 
-            height:
-                34px;
+            display: flex;
+            align-items: center;
 
-            display:
-                flex;
+            padding: 0 9px;
 
-            align-items:
-                center;
+            margin: 0 0 2px 0;
 
-            padding:
-                0 9px;
-
-            margin:
-                0 0 2px 0;
-
-            border-radius:
-                6px;
+            border-radius: 6px;
 
             background:
                 rgba(31, 82, 166, 0.25);
 
-            color:
-                #d5e3fb;
+            color: #d5e3fb;
 
-            font-size:
-                12px;
-
-            font-weight:
-                600;
+            font-size: 12px;
+            font-weight: 600;
         }
 
 
         .pch-framework-arrow {
+            color: #72aaff;
 
-            color:
-                #72aaff;
+            margin-right: 8px;
 
-            margin-right:
-                8px;
-
-            font-size:
-                13px;
+            font-size: 13px;
         }
 
 
         /* ==================================================
-           ALL SIDEBAR BUTTONS
+           BUTTON CONTAINER
            ================================================== */
 
         section[data-testid="stSidebar"]
         .stButton {
-
-            margin:
-                0 !important;
-
-            padding:
-                0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
 
+
+        /* ==================================================
+           BUTTON
+           ================================================== */
 
         section[data-testid="stSidebar"]
         .stButton > button {
 
-            height:
-                34px !important;
+            height: 34px !important;
+            min-height: 34px !important;
 
-            min-height:
-                34px !important;
+            width: 100% !important;
 
-            width:
-                100% !important;
-
-            margin:
-                0 !important;
+            margin: 0 !important;
 
             padding:
                 0 9px 0 17px !important;
 
-            border-radius:
-                5px !important;
+            border-radius: 5px !important;
 
             border:
                 1px solid transparent !important;
@@ -288,7 +235,9 @@ def load_sidebar_css():
         }
 
 
-        /* Button text */
+        /* ==================================================
+           BUTTON TEXT
+           ================================================== */
 
         section[data-testid="stSidebar"]
         .stButton > button p {
@@ -323,7 +272,7 @@ def load_sidebar_css():
 
 
         /* ==================================================
-           SELECTED BUTTON
+           SELECTED
            ================================================== */
 
         section[data-testid="stSidebar"]
@@ -353,8 +302,7 @@ def load_sidebar_css():
 
         .pch-separator {
 
-            height:
-                1px;
+            height: 1px;
 
             margin:
                 9px 5px 10px 5px;
@@ -369,11 +317,8 @@ def load_sidebar_css():
            ================================================== */
 
         .pch-navigation-space {
-
-            height:
-                4px;
+            height: 4px;
         }
-
 
         </style>
         """,
@@ -429,7 +374,7 @@ def render_sidebar():
 
 
         # ==================================================
-        # FRAMEWORKS HEADING
+        # FRAMEWORKS
         # ==================================================
 
         st.markdown(
@@ -438,30 +383,47 @@ def render_sidebar():
         )
 
 
-        # ==================================================
-        # FRAMEWORKS + ASSETS
-        # ==================================================
-
         for framework_index, framework in enumerate(
             FRAMEWORK_ORDER
         ):
 
-            # Get assets from config/frameworks.py
-            assets = FRAMEWORKS.get(
+            # ------------------------------------------------
+            # Get framework data
+            # ------------------------------------------------
+
+            framework_data = FRAMEWORKS.get(
                 framework,
-                {},
-            ).get(
-                "assets",
-                [],
+                {}
             )
+
+
+            # ------------------------------------------------
+            # Get assets
+            # ------------------------------------------------
+
+            if isinstance(framework_data, dict):
+
+                assets = framework_data.get(
+                    "assets",
+                    []
+                )
+
+            else:
+
+                assets = framework_data
+
+
+            # ------------------------------------------------
+            # Skip empty framework
+            # ------------------------------------------------
 
             if not assets:
                 continue
 
 
-            # ----------------------------------------------
+            # ------------------------------------------------
             # Framework heading
-            # ----------------------------------------------
+            # ------------------------------------------------
 
             st.markdown(
                 f"""
@@ -481,9 +443,9 @@ def render_sidebar():
             )
 
 
-            # ----------------------------------------------
-            # Asset selection buttons
-            # ----------------------------------------------
+            # ------------------------------------------------
+            # Asset buttons
+            # ------------------------------------------------
 
             for asset in assets:
 
@@ -520,11 +482,13 @@ def render_sidebar():
                 )
 
 
-            # ----------------------------------------------
-            # Separator between frameworks
-            # ----------------------------------------------
+            # ------------------------------------------------
+            # Framework separator
+            # ------------------------------------------------
 
-            if framework_index < len(FRAMEWORK_ORDER) - 1:
+            if framework_index < len(
+                FRAMEWORK_ORDER
+            ) - 1:
 
                 st.markdown(
                     '<div class="pch-separator"></div>',
@@ -533,7 +497,7 @@ def render_sidebar():
 
 
         # ==================================================
-        # SPACE BEFORE NAVIGATION
+        # NAVIGATION SPACE
         # ==================================================
 
         st.markdown(
