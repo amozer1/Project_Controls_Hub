@@ -1,4 +1,3 @@
-```python
 import streamlit as st
 
 from config.frameworks import FRAMEWORKS
@@ -35,19 +34,13 @@ NAVIGATION_ITEMS = [
 # ==========================================================
 
 if "selected_framework" not in st.session_state:
-    st.session_state.selected_framework = (
-        "UU Enterprise Framework"
-    )
+    st.session_state.selected_framework = "UU Enterprise Framework"
 
 if "selected_asset" not in st.session_state:
-    st.session_state.selected_asset = (
-        "Pennington Flash"
-    )
+    st.session_state.selected_asset = "Pennington Flash"
 
 if "selected_navigation" not in st.session_state:
-    st.session_state.selected_navigation = (
-        "Overview"
-    )
+    st.session_state.selected_navigation = "Overview"
 
 
 # ==========================================================
@@ -55,33 +48,30 @@ if "selected_navigation" not in st.session_state:
 # ==========================================================
 
 def select_asset(framework, asset):
-
     st.session_state.selected_framework = framework
     st.session_state.selected_asset = asset
     st.session_state.selected_navigation = "Overview"
 
 
 def select_navigation(item):
-
     st.session_state.selected_navigation = item
 
 
 def select_home():
-
     st.session_state.selected_navigation = "Overview"
 
 
 # ==========================================================
-# SIDEBAR
+# RENDER SIDEBAR
 # ==========================================================
 
 def render_sidebar():
 
     with st.sidebar:
 
-        # ==================================================
+        # --------------------------------------------------
         # BRAND
-        # ==================================================
+        # --------------------------------------------------
 
         st.image(
             "assets/logo.png",
@@ -100,10 +90,12 @@ def render_sidebar():
             "Design Management Intelligence"
         )
 
+        st.divider()
 
-        # ==================================================
+
+        # --------------------------------------------------
         # FRAMEWORKS
-        # ==================================================
+        # --------------------------------------------------
 
         st.caption("FRAMEWORKS")
 
@@ -112,138 +104,81 @@ def render_sidebar():
             FRAMEWORK_ORDER
         ):
 
-            # ------------------------------------------------
-            # Framework data
-            # ------------------------------------------------
-
             framework_data = FRAMEWORKS.get(
                 framework,
                 {}
             )
 
-
-            # ------------------------------------------------
-            # Support dictionary or list structure
-            # ------------------------------------------------
-
-            if isinstance(
-                framework_data,
-                dict
-            ):
-
+            if isinstance(framework_data, dict):
                 assets = framework_data.get(
                     "assets",
                     []
                 )
-
             else:
-
                 assets = framework_data
-
-
-            # ------------------------------------------------
-            # Skip empty frameworks
-            # ------------------------------------------------
 
             if not assets:
                 continue
 
 
-            # ------------------------------------------------
             # Framework heading
-            # ------------------------------------------------
-
             st.markdown(
                 f"**{framework}**"
             )
 
 
-            # ------------------------------------------------
-            # Asset buttons
-            # ------------------------------------------------
-
+            # Assets
             for asset in assets:
 
                 selected = (
-                    st.session_state.selected_framework
-                    == framework
+                    st.session_state.selected_framework == framework
                     and
-                    st.session_state.selected_asset
-                    == asset
+                    st.session_state.selected_asset == asset
                 )
-
 
                 st.button(
                     asset,
-
-                    key=(
-                        f"asset_"
-                        f"{framework}_"
-                        f"{asset}"
-                    ),
-
+                    key=f"asset_{framework}_{asset}",
                     use_container_width=True,
-
                     type=(
                         "primary"
                         if selected
                         else "secondary"
                     ),
-
                     on_click=select_asset,
-
-                    args=(
-                        framework,
-                        asset,
-                    ),
+                    args=(framework, asset),
                 )
 
 
-            # ------------------------------------------------
             # Separator between frameworks
-            # ------------------------------------------------
-
-            if framework_index == 0:
-
+            if framework_index < len(FRAMEWORK_ORDER) - 1:
                 st.divider()
 
 
-        # ==================================================
+        # --------------------------------------------------
         # NAVIGATION
-        # ==================================================
+        # --------------------------------------------------
 
         st.divider()
 
         st.caption("NAVIGATION")
 
 
-        # --------------------------------------------------
-        # Navigation buttons
-        # --------------------------------------------------
-
         for item in NAVIGATION_ITEMS:
 
             selected = (
-                st.session_state.selected_navigation
-                == item
+                st.session_state.selected_navigation == item
             )
-
 
             st.button(
                 item,
-
                 key=f"navigation_{item}",
-
                 use_container_width=True,
-
                 type=(
                     "primary"
                     if selected
                     else "secondary"
                 ),
-
                 on_click=select_navigation,
-
                 args=(item,),
             )
-
