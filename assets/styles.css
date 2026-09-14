@@ -5,8 +5,6 @@
 /* Sidebar overall spacing */
 section[data-testid="stSidebar"] {
     padding-top: 0.5rem;
-    background-color: #061A2F;
-    color: #FFFFFF;
 }
 
 
@@ -24,8 +22,6 @@ section[data-testid="stSidebar"] div[data-testid="stButton"] {
 section[data-testid="stSidebar"] div[data-testid="stButton"] button {
     justify-content: flex-start !important;
     text-align: left !important;
-    background-color: #0A2342 !important;
-    color: #FFFFFF !important;
 }
 
 
@@ -40,7 +36,6 @@ section[data-testid="stSidebar"] div[data-testid="stButton"] button > div {
 section[data-testid="stSidebar"] div[data-testid="stButton"] button p {
     text-align: left !important;
     margin: 0;
-    color: #FFFFFF !important;
 }
 
 
@@ -50,8 +45,6 @@ section[data-testid="stSidebar"] div[data-testid="stButton"] button p {
 
 section[data-testid="stSidebar"] div[data-testid="stExpander"] {
     margin-bottom: 0.25rem;
-    background-color: #0A2342;
-    color: #FFFFFF;
 }
 
 
@@ -59,7 +52,6 @@ section[data-testid="stSidebar"] div[data-testid="stExpander"] {
 section[data-testid="stSidebar"] div[data-testid="stExpander"] summary {
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
-    color: #FFFFFF !important;
 }
 
 
@@ -67,7 +59,6 @@ section[data-testid="stSidebar"] div[data-testid="stExpander"] summary {
 section[data-testid="stSidebar"] div[data-testid="stExpanderDetails"] {
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
-    color: #FFFFFF !important;
 }
 
 
@@ -78,7 +69,6 @@ section[data-testid="stSidebar"] div[data-testid="stExpanderDetails"] {
 section[data-testid="stSidebar"] .stCaption {
     margin-top: 0.15rem;
     margin-bottom: 0.25rem;
-    color: #D7E3F0 !important;
 }
 
 
