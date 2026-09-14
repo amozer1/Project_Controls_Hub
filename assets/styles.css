@@ -1,82 +1,178 @@
 /* ==========================================================
-   PROJECT CONTROLS HUB - SIDEBAR
+   PROJECT CONTROLS HUB
+   SIDEBAR
    ========================================================== */
 
-/* Sidebar overall spacing */
 section[data-testid="stSidebar"] {
-    padding-top: 0.5rem;
+    background-color: #0A1322;
 }
 
 
-/* ----------------------------------------------------------
-   Sidebar buttons
-   ---------------------------------------------------------- */
+/* ==========================================================
+   SIDEBAR CONTENT
+   ========================================================== */
+
+section[data-testid="stSidebar"] > div {
+    background-color: #0A1322;
+}
+
+
+/* ==========================================================
+   BRAND
+   ========================================================== */
 
 section[data-testid="stSidebar"] div[data-testid="stButton"] {
     margin-top: 0;
-    margin-bottom: 0.15rem;
+    margin-bottom: 0.12rem;
 }
 
-
-/* Left-align all button content */
 section[data-testid="stSidebar"] div[data-testid="stButton"] button {
+    background-color: transparent;
+    border: none;
+    color: #F5F7FA;
+    box-shadow: none;
     justify-content: flex-start !important;
     text-align: left !important;
+    padding: 0.25rem 0.55rem;
+}
+
+section[data-testid="stSidebar"] div[data-testid="stButton"] button:hover {
+    background-color: #151F30;
+    border: none;
+    color: #FFFFFF;
 }
 
 
-/* Left-align the actual button text */
+/* ==========================================================
+   LEFT ALIGN BUTTON TEXT
+   ========================================================== */
+
 section[data-testid="stSidebar"] div[data-testid="stButton"] button > div {
     justify-content: flex-start !important;
     width: 100%;
 }
 
-
-/* Keep button text compact */
 section[data-testid="stSidebar"] div[data-testid="stButton"] button p {
     text-align: left !important;
     margin: 0;
 }
 
 
-/* ----------------------------------------------------------
-   Framework expanders
-   ---------------------------------------------------------- */
+/* ==========================================================
+   SELECTED BUTTON
+   ========================================================== */
 
-section[data-testid="stSidebar"] div[data-testid="stExpander"] {
-    margin-bottom: 0.25rem;
+section[data-testid="stSidebar"]
+div[data-testid="stButton"]
+button[kind="primary"] {
+    background-color: #0088FF;
+    border: 1px solid #0088FF;
+    color: #FFFFFF;
+}
+
+section[data-testid="stSidebar"]
+div[data-testid="stButton"]
+button[kind="primary"]:hover {
+    background-color: #0088FF;
+    border-color: #0088FF;
 }
 
 
-/* Compact expander header */
-section[data-testid="stSidebar"] div[data-testid="stExpander"] summary {
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
+/* ==========================================================
+   FRAMEWORK EXPANDERS
+   ========================================================== */
+
+section[data-testid="stSidebar"]
+div[data-testid="stExpander"] {
+    background-color: #1A1C24;
+    border: 1px solid #3B424E;
+    border-radius: 4px;
+    margin-bottom: 0.35rem;
 }
 
 
-/* Compact expander contents */
-section[data-testid="stSidebar"] div[data-testid="stExpanderDetails"] {
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
+/* Expander header */
+
+section[data-testid="stSidebar"]
+div[data-testid="stExpander"] summary {
+    background-color: #1A1C24;
+    color: #F5F7FA;
+    padding: 0.35rem 0.55rem;
 }
 
 
-/* ----------------------------------------------------------
-   Sidebar captions / section headings
-   ---------------------------------------------------------- */
+/* Expander contents */
+
+section[data-testid="stSidebar"]
+div[data-testid="stExpanderDetails"] {
+    background-color: #1A1C24;
+    padding: 0.3rem 0.45rem 0.4rem 0.45rem;
+}
+
+
+/* ==========================================================
+   ASSET BUTTONS
+   ========================================================== */
+
+section[data-testid="stSidebar"]
+div[data-testid="stExpander"]
+div[data-testid="stButton"] button {
+    background-color: transparent;
+    border: none;
+    color: #D7DCE3;
+    padding: 0.25rem 0.45rem;
+}
+
+section[data-testid="stSidebar"]
+div[data-testid="stExpander"]
+div[data-testid="stButton"] button:hover {
+    background-color: #151F30;
+    color: #FFFFFF;
+}
+
+
+/* Selected asset */
+
+section[data-testid="stSidebar"]
+div[data-testid="stExpander"]
+div[data-testid="stButton"]
+button[kind="primary"] {
+    background-color: #0088FF;
+    border: 1px solid #0088FF;
+    color: #FFFFFF;
+}
+
+
+/* ==========================================================
+   SECTION HEADINGS
+   ========================================================== */
 
 section[data-testid="stSidebar"] .stCaption {
-    margin-top: 0.15rem;
+    color: #9BA5B4;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    margin-top: 0.2rem;
     margin-bottom: 0.25rem;
 }
 
 
-/* ----------------------------------------------------------
-   Dividers
-   ---------------------------------------------------------- */
+/* ==========================================================
+   DIVIDERS
+   ========================================================== */
 
 section[data-testid="stSidebar"] hr {
+    border-color: #3B424E;
     margin-top: 0.45rem;
     margin-bottom: 0.45rem;
+}
+
+
+/* ==========================================================
+   EXPANDER ARROW / TEXT
+   ========================================================== */
+
+section[data-testid="stSidebar"]
+div[data-testid="stExpander"] summary span {
+    color: #F5F7FA;
 }
