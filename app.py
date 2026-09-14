@@ -3,36 +3,13 @@ from pathlib import Path
 
 from components.sidebar import render_sidebar
 
+
 # =========================================================
 # OVERVIEW — FERRY
 # =========================================================
 
 from overview.ferry.project_position_ferry import (
     render_project_position_ferry,
-)
-
-from overview.ferry.delivery_status_ferry import (
-    render_delivery_status_ferry,
-)
-
-from overview.ferry.next_7_days_cl32_ferry import (
-    render_next_7_days_cl32_ferry,
-)
-
-from overview.ferry.programme_changes_ferry import (
-    render_programme_changes_ferry,
-)
-
-from overview.ferry.key_milestones_cl32_ferry import (
-    render_key_milestones_cl32_ferry,
-)
-
-from overview.ferry.management_focus_ferry import (
-    render_management_focus_ferry,
-)
-
-from overview.ferry.delivery_by_discipline_ferry import (
-    render_delivery_by_discipline_ferry,
 )
 
 
@@ -106,39 +83,3 @@ if st.session_state.selected_navigation == "Overview":
         # =================================================
 
         render_project_position_ferry()
-
-        # =================================================
-        # UNIT 02 — DELIVERY STATUS
-        # =================================================
-
-        render_delivery_status_ferry()
-
-        # =================================================
-        # UNIT 03 — NEXT 7 DAYS
-        # =================================================
-
-        render_next_7_days_cl32_ferry()
-
-        # =================================================
-        # UNIT 04 — PROGRAMME CHANGES
-        # =================================================
-
-        render_programme_changes_ferry()
-
-        # =================================================
-        # UNIT 05 — KEY MILESTONES
-        # =================================================
-
-        render_key_milestones_cl32_ferry()
-
-        # =================================================
-        # UNIT 06 — MANAGEMENT FOCUS
-        # =================================================
-
-        render_management_focus_ferry()
-
-        # =================================================
-        # UNIT 07 — DELIVERY BY DISCIPLINE
-        # =================================================
-
-        render_delivery_by_discipline_ferry()
