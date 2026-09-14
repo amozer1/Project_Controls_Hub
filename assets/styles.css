@@ -5,8 +5,8 @@
 /* Sidebar overall spacing */
 section[data-testid="stSidebar"] {
     padding-top: 0.5rem;
-    background-color: #071A2B;
-    color: #F4F7FA;
+    background-color: #081C2C;
+    color: #F2F6FA;
 }
 
 
@@ -24,8 +24,7 @@ section[data-testid="stSidebar"] div[data-testid="stButton"] {
 section[data-testid="stSidebar"] div[data-testid="stButton"] button {
     justify-content: flex-start !important;
     text-align: left !important;
-    background-color: #102A43 !important;
-    color: #F4F7FA !important;
+    color: #F2F6FA !important;
 }
 
 
@@ -40,7 +39,7 @@ section[data-testid="stSidebar"] div[data-testid="stButton"] button > div {
 section[data-testid="stSidebar"] div[data-testid="stButton"] button p {
     text-align: left !important;
     margin: 0;
-    color: #F4F7FA !important;
+    color: #F2F6FA !important;
 }
 
 
@@ -50,8 +49,7 @@ section[data-testid="stSidebar"] div[data-testid="stButton"] button p {
 
 section[data-testid="stSidebar"] div[data-testid="stExpander"] {
     margin-bottom: 0.25rem;
-    background-color: #102A43;
-    color: #F4F7FA;
+    color: #F2F6FA;
 }
 
 
@@ -59,7 +57,7 @@ section[data-testid="stSidebar"] div[data-testid="stExpander"] {
 section[data-testid="stSidebar"] div[data-testid="stExpander"] summary {
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
-    color: #F4F7FA !important;
+    color: #F2F6FA !important;
 }
 
 
@@ -67,7 +65,7 @@ section[data-testid="stSidebar"] div[data-testid="stExpander"] summary {
 section[data-testid="stSidebar"] div[data-testid="stExpanderDetails"] {
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
-    color: #D9E4EC !important;
+    color: #AFC1D1 !important;
 }
 
 
@@ -78,7 +76,7 @@ section[data-testid="stSidebar"] div[data-testid="stExpanderDetails"] {
 section[data-testid="stSidebar"] .stCaption {
     margin-top: 0.15rem;
     margin-bottom: 0.25rem;
-    color: #9FB3C8 !important;
+    color: #AFC1D1 !important;
 }
 
 
@@ -89,5 +87,5 @@ section[data-testid="stSidebar"] .stCaption {
 section[data-testid="stSidebar"] hr {
     margin-top: 0.45rem;
     margin-bottom: 0.45rem;
-    border-color: #29465F !important;
+    border-color: #244257 !important;
 }
