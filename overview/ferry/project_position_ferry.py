@@ -4,6 +4,10 @@ import pandas as pd
 from loaders.ferry_loader import load_ferry
 
 
+# =========================================================
+# UNIT 01 — PROJECT POSITION
+# =========================================================
+
 def render_project_position_ferry():
 
     # =====================================================
@@ -12,13 +16,14 @@ def render_project_position_ferry():
 
     try:
         cl31, cl32 = load_ferry()
+
     except Exception as e:
         st.error("Unable to load Ferry PS programme data.")
         st.exception(e)
         return
 
     # =====================================================
-    # CHECK DATA
+    # CHECK CL32 DATA
     # =====================================================
 
     if cl32 is None or cl32.empty:
@@ -26,12 +31,25 @@ def render_project_position_ferry():
         return
 
     # =====================================================
-    # GET LATEST CL32 SNAPSHOT
+    # CLEAN COLUMN NAMES
+    # =====================================================
+
+    cl32.columns = [
+        str(column).strip()
+        for column in cl32.columns
+    ]
+
+    # =====================================================
+    # CHECK SNAPSHOT DATE
     # =====================================================
 
     if "SnapshotDate" not in cl32.columns:
         st.error("CL32 data does not contain SnapshotDate.")
         return
+
+    # =====================================================
+    # GET LATEST CL32 SNAPSHOT
+    # =====================================================
 
     latest_snapshot = cl32["SnapshotDate"].max()
 
@@ -44,38 +62,40 @@ def render_project_position_ferry():
         return
 
     # =====================================================
-    # CLEAN COLUMN NAMES
-    # =====================================================
-
-    current.columns = [
-        str(column).strip()
-        for column in current.columns
-    ]
-
-    # =====================================================
     # REMOVE RETIRED ACTIVITIES
-    # =====================================================
-
-    if "Activity ID" in current.columns:
-
-        activity_id = (
-            current["Activity ID"]
-            .astype(str)
-            .str.strip()
-            .str.upper()
-        )
-
-        current = current[
-            ~activity_id.str.startswith("FER-DEP-")
-        ].copy()
-
-    # =====================================================
-    # IDENTIFY FORMAL DELIVERABLES
     # =====================================================
 
     if "Activity ID" not in current.columns:
         st.error("CL32 data does not contain Activity ID.")
         return
+
+    activity_id = (
+        current["Activity ID"]
+        .astype(str)
+        .str.strip()
+        .str.upper()
+    )
+
+    current = current[
+        ~activity_id.str.startswith("FER-DEP-")
+    ].copy()
+
+    # =====================================================
+    # IDENTIFY FORMAL DELIVERABLES
+    # =====================================================
+    #
+    # Formal deliverables use:
+    #
+    # FER-XXX-0000
+    #
+    # Examples:
+    # FER-CIV-1040
+    # FER-MEC-1000
+    # FER-PRO-1010
+    # FER-EICA-1000
+    #
+    # Programme headings and milestones are excluded.
+    # =====================================================
 
     activity_id = (
         current["Activity ID"]
@@ -94,15 +114,17 @@ def render_project_position_ferry():
     ].copy()
 
     # =====================================================
-    # NO DELIVERABLES
+    # CHECK DELIVERABLES
     # =====================================================
 
     if deliverables.empty:
-        st.warning("No formal Ferry PS deliverables were found.")
+        st.warning(
+            "No formal Ferry PS deliverables were found."
+        )
         return
 
     # =====================================================
-    # CONVERT DATA TYPES
+    # CLEAN NUMERIC DATA
     # =====================================================
 
     if "Activity % Complete" in deliverables.columns:
@@ -127,6 +149,10 @@ def render_project_position_ferry():
 
         deliverables["Total Float"] = pd.NA
 
+    # =====================================================
+    # CLEAN DATES
+    # =====================================================
+
     if "Finish" in deliverables.columns:
 
         deliverables["Finish"] = pd.to_datetime(
@@ -134,12 +160,20 @@ def render_project_position_ferry():
             errors="coerce"
         )
 
+    else:
+
+        deliverables["Finish"] = pd.NaT
+
     if "BL1 Finish" in deliverables.columns:
 
         deliverables["BL1 Finish"] = pd.to_datetime(
             deliverables["BL1 Finish"],
             errors="coerce"
         )
+
+    else:
+
+        deliverables["BL1 Finish"] = pd.NaT
 
     # =====================================================
     # CALCULATE STATUS
@@ -157,15 +191,21 @@ def render_project_position_ferry():
     total_deliverables = len(deliverables)
 
     on_track = int(
-        (deliverables["Status"] == "On Track").sum()
+        (
+            deliverables["Status"] == "On Track"
+        ).sum()
     )
 
     delayed = int(
-        (deliverables["Status"] == "Delayed").sum()
+        (
+            deliverables["Status"] == "Delayed"
+        ).sum()
     )
 
     at_risk = int(
-        (deliverables["Status"] == "At Risk").sum()
+        (
+            deliverables["Status"] == "At Risk"
+        ).sum()
     )
 
     next_7_days = count_next_7_days(
@@ -203,7 +243,7 @@ def render_project_position_ferry():
 
         </div>
         """,
-        unsafe_allow_html=True
+        unsafe_allow_html=True,
     )
 
     # =====================================================
@@ -215,49 +255,51 @@ def render_project_position_ferry():
     with col1:
 
         render_kpi(
-            "Overall Status",
-            overall_status,
-            get_status_class(overall_status)
+            label="Overall Status",
+            value=overall_status,
+            card_class=get_status_class(
+                overall_status
+            ),
         )
 
     with col2:
 
         render_kpi(
-            "Total Deliverables",
-            total_deliverables,
-            "neutral"
+            label="Total Deliverables",
+            value=total_deliverables,
+            card_class="neutral",
         )
 
     with col3:
 
         render_kpi(
-            "On Track",
-            on_track,
-            "healthy"
+            label="On Track",
+            value=on_track,
+            card_class="healthy",
         )
 
     with col4:
 
         render_kpi(
-            "Delayed",
-            delayed,
-            "warning"
+            label="Delayed",
+            value=delayed,
+            card_class="warning",
         )
 
     with col5:
 
         render_kpi(
-            "At Risk",
-            at_risk,
-            "critical"
+            label="At Risk",
+            value=at_risk,
+            card_class="critical",
         )
 
     with col6:
 
         render_kpi(
-            "Next 7 Days",
-            next_7_days,
-            "forecast"
+            label="Next 7 Days",
+            value=next_7_days,
+            card_class="forecast",
         )
 
 
@@ -267,11 +309,20 @@ def render_project_position_ferry():
 
 def calculate_status(row):
 
-    finish = row.get("Finish")
+    finish = row.get(
+        "Finish",
+        pd.NaT
+    )
 
-    baseline = row.get("BL1 Finish")
+    baseline = row.get(
+        "BL1 Finish",
+        pd.NaT
+    )
 
-    total_float = row.get("Total Float")
+    total_float = row.get(
+        "Total Float",
+        pd.NA
+    )
 
     completion = row.get(
         "Activity % Complete",
@@ -280,15 +331,18 @@ def calculate_status(row):
 
     today = pd.Timestamp.today().normalize()
 
-    # -----------------------------------------------------
+    # =====================================================
     # COMPLETION
-    # -----------------------------------------------------
+    # =====================================================
 
     try:
 
         completion = float(completion)
 
-    except (TypeError, ValueError):
+    except (
+        TypeError,
+        ValueError
+    ):
 
         completion = 0
 
@@ -296,21 +350,32 @@ def calculate_status(row):
 
         return "On Track"
 
-    # -----------------------------------------------------
+    # =====================================================
     # FLOAT
-    # -----------------------------------------------------
+    # =====================================================
 
     try:
 
-        total_float = float(total_float)
+        if pd.isna(total_float):
 
-    except (TypeError, ValueError):
+            total_float = None
+
+        else:
+
+            total_float = float(
+                total_float
+            )
+
+    except (
+        TypeError,
+        ValueError
+    ):
 
         total_float = None
 
-    # -----------------------------------------------------
-    # PAST FINISH DATE
-    # -----------------------------------------------------
+    # =====================================================
+    # PAST CURRENT FINISH DATE
+    # =====================================================
 
     if pd.notna(finish):
 
@@ -318,33 +383,40 @@ def calculate_status(row):
 
             return "Delayed"
 
-    # -----------------------------------------------------
+    # =====================================================
     # FINISH DATE MOVEMENT
-    # -----------------------------------------------------
+    # =====================================================
 
-    if pd.notna(finish) and pd.notna(baseline):
+    if (
+        pd.notna(finish)
+        and pd.notna(baseline)
+    ):
 
         movement = (
             finish - baseline
         ).days
 
+        # Finish has moved later.
         if movement > 0:
 
+            # No float available.
             if total_float is None:
 
                 return "At Risk"
 
+            # No remaining float.
             if total_float <= 0:
 
                 return "Delayed"
 
+            # Very limited float.
             if total_float <= 5:
 
                 return "At Risk"
 
-    # -----------------------------------------------------
-    # LOW FLOAT
-    # -----------------------------------------------------
+    # =====================================================
+    # LOW / NEGATIVE FLOAT
+    # =====================================================
 
     if total_float is not None:
 
@@ -356,9 +428,9 @@ def calculate_status(row):
 
             return "At Risk"
 
-    # -----------------------------------------------------
-    # NEXT 7 DAYS
-    # -----------------------------------------------------
+    # =====================================================
+    # UPCOMING FINISH
+    # =====================================================
 
     if pd.notna(finish):
 
@@ -366,7 +438,11 @@ def calculate_status(row):
             finish - today
         ).days
 
-        if 0 <= days_to_finish <= 7:
+        if (
+            0
+            <= days_to_finish
+            <= 7
+        ):
 
             if total_float is not None:
 
@@ -374,16 +450,16 @@ def calculate_status(row):
 
                     return "At Risk"
 
-    # -----------------------------------------------------
+    # =====================================================
     # DEFAULT
-    # -----------------------------------------------------
+    # =====================================================
 
     return "On Track"
 
 
-# =====================================================
+# =========================================================
 # NEXT 7 DAYS
-# =====================================================
+# =========================================================
 
 def count_next_7_days(df):
 
@@ -400,20 +476,24 @@ def count_next_7_days(df):
 
     mask = (
         (df["Finish"] >= today)
-        & (df["Finish"] <= end_date)
-        & (df["Activity % Complete"] < 100)
+        &
+        (df["Finish"] <= end_date)
+        &
+        (df["Activity % Complete"] < 100)
     )
 
-    return int(mask.sum())
+    return int(
+        mask.sum()
+    )
 
 
-# =====================================================
+# =========================================================
 # OVERALL STATUS
-# =====================================================
+# =========================================================
 
 def calculate_overall_status(
     delayed,
-    at_risk
+    at_risk,
 ):
 
     if delayed > 0:
@@ -427,9 +507,9 @@ def calculate_overall_status(
     return "On Track"
 
 
-# =====================================================
-# STATUS CLASS
-# =====================================================
+# =========================================================
+# STATUS CSS CLASS
+# =========================================================
 
 def get_status_class(status):
 
@@ -448,14 +528,14 @@ def get_status_class(status):
     return "neutral"
 
 
-# =====================================================
+# =========================================================
 # KPI CARD
-# =====================================================
+# =========================================================
 
 def render_kpi(
     label,
     value,
-    card_class
+    card_class,
 ):
 
     st.markdown(
@@ -472,5 +552,5 @@ def render_kpi(
 
         </div>
         """,
-        unsafe_allow_html=True
+        unsafe_allow_html=True,
     )
