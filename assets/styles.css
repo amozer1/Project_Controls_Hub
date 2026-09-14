@@ -1,3 +1,4 @@
+
 /* ==========================================================
    PROJECT CONTROLS HUB - SIDEBAR
    ========================================================== */
@@ -5,8 +6,8 @@
 /* Sidebar overall spacing */
 section[data-testid="stSidebar"] {
     padding-top: 0.5rem;
-    background-color: #081C2C;
-    color: #F2F6FA;
+    background-color: #071A2B;
+    color: #EAF2F8;
 }
 
 
@@ -24,7 +25,7 @@ section[data-testid="stSidebar"] div[data-testid="stButton"] {
 section[data-testid="stSidebar"] div[data-testid="stButton"] button {
     justify-content: flex-start !important;
     text-align: left !important;
-    color: #F2F6FA !important;
+    color: #EAF2F8 !important;
 }
 
 
@@ -39,7 +40,7 @@ section[data-testid="stSidebar"] div[data-testid="stButton"] button > div {
 section[data-testid="stSidebar"] div[data-testid="stButton"] button p {
     text-align: left !important;
     margin: 0;
-    color: #F2F6FA !important;
+    color: #EAF2F8 !important;
 }
 
 
@@ -49,7 +50,7 @@ section[data-testid="stSidebar"] div[data-testid="stButton"] button p {
 
 section[data-testid="stSidebar"] div[data-testid="stExpander"] {
     margin-bottom: 0.25rem;
-    color: #F2F6FA;
+    color: #EAF2F8;
 }
 
 
@@ -57,7 +58,7 @@ section[data-testid="stSidebar"] div[data-testid="stExpander"] {
 section[data-testid="stSidebar"] div[data-testid="stExpander"] summary {
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
-    color: #F2F6FA !important;
+    color: #EAF2F8 !important;
 }
 
 
@@ -65,7 +66,7 @@ section[data-testid="stSidebar"] div[data-testid="stExpander"] summary {
 section[data-testid="stSidebar"] div[data-testid="stExpanderDetails"] {
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
-    color: #AFC1D1 !important;
+    color: #C9D8E5 !important;
 }
 
 
@@ -76,7 +77,7 @@ section[data-testid="stSidebar"] div[data-testid="stExpanderDetails"] {
 section[data-testid="stSidebar"] .stCaption {
     margin-top: 0.15rem;
     margin-bottom: 0.25rem;
-    color: #AFC1D1 !important;
+    color: #8FA8BC !important;
 }
 
 
@@ -87,5 +88,5 @@ section[data-testid="stSidebar"] .stCaption {
 section[data-testid="stSidebar"] hr {
     margin-top: 0.45rem;
     margin-bottom: 0.45rem;
-    border-color: #244257 !important;
+    border-color: #29465B !important;
 }
