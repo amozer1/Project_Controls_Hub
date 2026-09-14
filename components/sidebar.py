@@ -3,11 +3,19 @@ import streamlit as st
 from config.frameworks import FRAMEWORKS
 
 
+# ==========================================================
+# FRAMEWORK ORDER
+# ==========================================================
+
 FRAMEWORK_ORDER = [
     "UU Enterprise Framework",
     "UU DD&B Framework",
 ]
 
+
+# ==========================================================
+# NAVIGATION
+# ==========================================================
 
 NAVIGATION_ITEMS = [
     "Overview",
@@ -21,6 +29,10 @@ NAVIGATION_ITEMS = [
 ]
 
 
+# ==========================================================
+# SESSION STATE
+# ==========================================================
+
 if "selected_framework" not in st.session_state:
     st.session_state.selected_framework = "UU Enterprise Framework"
 
@@ -30,6 +42,10 @@ if "selected_asset" not in st.session_state:
 if "selected_navigation" not in st.session_state:
     st.session_state.selected_navigation = "Overview"
 
+
+# ==========================================================
+# CALLBACKS
+# ==========================================================
 
 def select_asset(framework, asset):
     st.session_state.selected_framework = framework
@@ -44,6 +60,10 @@ def select_navigation(item):
 def select_home():
     st.session_state.selected_navigation = "Overview"
 
+
+# ==========================================================
+# SIDEBAR
+# ==========================================================
 
 def render_sidebar():
 
@@ -76,10 +96,6 @@ def render_sidebar():
 
             framework_data = FRAMEWORKS.get(framework, {})
 
-            # Supports either:
-            # {"assets": [...]}
-            # or
-            # [...]
             if isinstance(framework_data, dict):
                 assets = framework_data.get("assets", [])
             else:
@@ -88,7 +104,10 @@ def render_sidebar():
             if not assets:
                 continue
 
-            with st.expander(framework, expanded=True):
+            with st.expander(
+                framework,
+                expanded=True,
+            ):
 
                 for asset in assets:
 
@@ -106,7 +125,6 @@ def render_sidebar():
                         args=(framework, asset),
                     )
 
-            # Separator between framework groups only
             if framework_index < len(FRAMEWORK_ORDER) - 1:
                 st.divider()
 
@@ -131,5 +149,5 @@ def render_sidebar():
                 use_container_width=True,
                 type="primary" if selected else "secondary",
                 on_click=select_navigation,
-                args=(item,),
+                args=(item,)
             )
