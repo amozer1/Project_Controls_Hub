@@ -1,0 +1,201 @@
+```css
+/* ==========================================================
+   PROJECT CONTROLS HUB
+   OVERVIEW — PROJECT POSITION
+   This file is independent from assets/styles.css
+   ========================================================== */
+
+.overview-position {
+    background: #ffffff;
+    border: 1px solid #dce5ee;
+    border-radius: 10px;
+    padding: 20px 22px 18px 22px;
+    margin-top: 8px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 8px rgba(15, 43, 70, 0.04);
+}
+
+/* Section heading */
+
+.overview-section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.overview-section-title::before {
+    content: "";
+    width: 3px;
+    height: 20px;
+    background: #0878d1;
+    border-radius: 3px;
+}
+
+.overview-section-title span {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #123b63;
+}
+
+/* KPI row */
+
+.position-grid {
+    display: grid;
+    grid-template-columns: 1.35fr repeat(4, 1fr);
+    min-height: 96px;
+}
+
+/* Individual KPI */
+
+.position-kpi {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8px 22px;
+    border-left: 1px solid #e1e8ef;
+}
+
+.position-kpi:first-child {
+    border-left: none;
+    padding-left: 4px;
+}
+
+/* Overall status */
+
+.position-status {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.status-indicator {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.status-indicator.amber {
+    background: #f5a623;
+}
+
+.status-indicator.green {
+    background: #16a673;
+}
+
+.status-indicator.red {
+    background: #e74c3c;
+}
+
+.status-indicator.neutral {
+    background: #b8c4cf;
+}
+
+.status-value {
+    font-size: 25px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.status-value.amber {
+    color: #e99a16;
+}
+
+.status-value.green {
+    color: #128c62;
+}
+
+.status-value.red {
+    color: #d83b32;
+}
+
+.status-value.neutral {
+    color: #6f7d8b;
+}
+
+.status-label {
+    margin-top: 6px;
+    font-size: 12px;
+    color: #607286;
+}
+
+/* KPI numbers */
+
+.position-number {
+    font-size: 27px;
+    line-height: 1;
+    font-weight: 800;
+    color: #123b63;
+    letter-spacing: -0.02em;
+}
+
+.position-label {
+    margin-top: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #53677b;
+}
+
+.position-support {
+    margin-top: 6px;
+    font-size: 11px;
+    color: #7b8b9b;
+}
+
+.position-support.on-track {
+    color: #11966b;
+    font-weight: 600;
+}
+
+.position-support.delayed {
+    color: #d83b32;
+    font-weight: 600;
+}
+
+.position-support.risk {
+    color: #e49a13;
+    font-weight: 600;
+}
+
+.position-support.next {
+    color: #0878d1;
+    font-weight: 600;
+}
+
+/* Responsive */
+
+@media (max-width: 1100px) {
+    .position-grid {
+        grid-template-columns: repeat(4, 1fr);
+        row-gap: 16px;
+    }
+
+    .position-kpi:first-child {
+        grid-column: span 4;
+        border-bottom: 1px solid #e1e8ef;
+        padding-bottom: 16px;
+    }
+
+    .position-kpi:nth-child(2) {
+        border-left: none;
+    }
+}
+
+@media (max-width: 700px) {
+    .position-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .position-kpi:first-child {
+        grid-column: span 2;
+    }
+
+    .position-kpi:nth-child(2),
+    .position-kpi:nth-child(4) {
+        border-left: none;
+    }
+}
+```
