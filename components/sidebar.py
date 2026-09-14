@@ -1,4 +1,6 @@
+```python
 import streamlit as st
+
 from config.frameworks import FRAMEWORKS
 
 
@@ -47,31 +49,38 @@ if "selected_navigation" not in st.session_state:
 # ==========================================================
 
 def select_asset(framework, asset):
+
     st.session_state.selected_framework = framework
     st.session_state.selected_asset = asset
     st.session_state.selected_navigation = "Overview"
 
 
 def select_navigation(item):
+
     st.session_state.selected_navigation = item
 
 
 def select_home():
+
     st.session_state.selected_navigation = "Overview"
 
 
 # ==========================================================
-# RENDER SIDEBAR
+# SIDEBAR
 # ==========================================================
 
 def render_sidebar():
+
     with st.sidebar:
 
-        # --------------------------------------------------
-        # BRAND
-        # --------------------------------------------------
+        # ==================================================
+        # HEADER
+        # ==================================================
 
-        st.image("assets/logo.png", width=42)
+        st.image(
+            "assets/logo.png",
+            width=42,
+        )
 
         st.button(
             "PROJECT CONTROLS HUB",
@@ -81,65 +90,142 @@ def render_sidebar():
             on_click=select_home,
         )
 
-        st.caption("Design Management Intelligence")
-        st.divider()
+        st.caption(
+            "Design Management Intelligence"
+        )
 
-        # --------------------------------------------------
+
+        # ==================================================
         # FRAMEWORKS
-        # --------------------------------------------------
+        # ==================================================
+
+        st.divider()
 
         st.caption("FRAMEWORKS")
 
-        for framework_index, framework in enumerate(FRAMEWORK_ORDER):
 
-            framework_data = FRAMEWORKS.get(framework, {})
-            assets = (
-                framework_data.get("assets", [])
-                if isinstance(framework_data, dict)
-                else framework_data
+        for framework_index, framework in enumerate(
+            FRAMEWORK_ORDER
+        ):
+
+            framework_data = FRAMEWORKS.get(
+                framework,
+                {}
             )
+
+
+            # ------------------------------------------------
+            # Get assets
+            # ------------------------------------------------
+
+            if isinstance(
+                framework_data,
+                dict
+            ):
+
+                assets = framework_data.get(
+                    "assets",
+                    []
+                )
+
+            else:
+
+                assets = framework_data
+
 
             if not assets:
                 continue
 
-            # Framework heading
-            st.markdown(f"**{framework}**")
 
-            # Assets
-            for asset in assets:
-                selected = (
-                    st.session_state.selected_framework == framework
-                    and st.session_state.selected_asset == asset
-                )
+            # ------------------------------------------------
+            # Framework
+            # ------------------------------------------------
 
-                st.button(
-                    asset,
-                    key=f"asset_{framework}_{asset}",
-                    use_container_width=True,
-                    type="primary" if selected else "secondary",
-                    on_click=select_asset,
-                    args=(framework, asset),
-                )
+            with st.expander(
+                framework,
+                expanded=True,
+            ):
 
-            # Separator between frameworks
-            if framework_index < len(FRAMEWORK_ORDER) - 1:
+                for asset in assets:
+
+                    selected = (
+                        st.session_state.selected_framework
+                        == framework
+                        and
+                        st.session_state.selected_asset
+                        == asset
+                    )
+
+
+                    st.button(
+                        asset,
+
+                        key=(
+                            f"asset_"
+                            f"{framework}_"
+                            f"{asset}"
+                        ),
+
+                        use_container_width=True,
+
+                        type=(
+                            "primary"
+                            if selected
+                            else "secondary"
+                        ),
+
+                        on_click=select_asset,
+
+                        args=(
+                            framework,
+                            asset,
+                        ),
+                    )
+
+
+            # ------------------------------------------------
+            # Between frameworks
+            # ------------------------------------------------
+
+            if framework_index < len(
+                FRAMEWORK_ORDER
+            ) - 1:
+
                 st.divider()
 
-        # --------------------------------------------------
+
+        # ==================================================
         # NAVIGATION
-        # --------------------------------------------------
+        # ==================================================
 
         st.divider()
+
         st.caption("NAVIGATION")
 
+
         for item in NAVIGATION_ITEMS:
-            selected = st.session_state.selected_navigation == item
+
+            selected = (
+                st.session_state.selected_navigation
+                == item
+            )
+
 
             st.button(
                 item,
+
                 key=f"navigation_{item}",
+
                 use_container_width=True,
-                type="primary" if selected else "secondary",
+
+                type=(
+                    "primary"
+                    if selected
+                    else "secondary"
+                ),
+
                 on_click=select_navigation,
+
                 args=(item,),
             )
+
