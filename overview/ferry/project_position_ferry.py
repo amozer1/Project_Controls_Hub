@@ -87,20 +87,6 @@ def render_project_position_ferry():
     # =====================================================
     # IDENTIFY FORMAL DELIVERABLES
     # =====================================================
-    #
-    # Formal Ferry deliverables use:
-    #
-    # FER-XXX-0000
-    #
-    # Examples:
-    #
-    # FER-CIV-1040
-    # FER-MEC-1000
-    # FER-PRO-1010
-    # FER-EICA-1000
-    #
-    # Programme headings and milestones are excluded.
-    # =====================================================
 
     activity_id = (
         current["Activity ID"]
@@ -159,7 +145,7 @@ def render_project_position_ferry():
         deliverables["Total Float"] = pd.NA
 
     # =====================================================
-    # CLEAN FINISH DATE
+    # CLEAN FINISH
     # =====================================================
 
     if "Finish" in deliverables.columns:
@@ -174,7 +160,7 @@ def render_project_position_ferry():
         deliverables["Finish"] = pd.NaT
 
     # =====================================================
-    # CLEAN BASELINE FINISH DATE
+    # CLEAN BASELINE FINISH
     # =====================================================
 
     if "BL1 Finish" in deliverables.columns:
@@ -198,7 +184,7 @@ def render_project_position_ferry():
     )
 
     # =====================================================
-    # CALCULATE KPI VALUES
+    # KPI VALUES
     # =====================================================
 
     total_deliverables = len(deliverables)
@@ -231,129 +217,64 @@ def render_project_position_ferry():
     )
 
     # =====================================================
-    # UNIT HEADER + KPI CARDS
+    # SECTION HEADER
     # =====================================================
 
     st.markdown(
-        f"""
-        <div class="overview-unit-header">
-
-            <div class="overview-unit-header-left">
-
-                <div class="overview-unit-kicker">
-                    PROJECT POSITION
-                </div>
-
-                <div class="overview-unit-title">
-                    Ferry PS
-                </div>
-
-            </div>
-
-            <div class="overview-unit-question">
-                Where are we?
-            </div>
-
-        </div>
-
-
-        <div class="project-position-kpi-row">
-
-
-            <!-- OVERALL STATUS -->
-
-            <div class="project-position-kpi {get_status_class(overall_status)}">
-
-                <div class="project-position-kpi-label">
-                    Overall Status
-                </div>
-
-                <div class="project-position-kpi-value">
-                    {overall_status}
-                </div>
-
-            </div>
-
-
-            <!-- TOTAL DELIVERABLES -->
-
-            <div class="project-position-kpi neutral">
-
-                <div class="project-position-kpi-label">
-                    Total Deliverables
-                </div>
-
-                <div class="project-position-kpi-value">
-                    {total_deliverables}
-                </div>
-
-            </div>
-
-
-            <!-- ON TRACK -->
-
-            <div class="project-position-kpi healthy">
-
-                <div class="project-position-kpi-label">
-                    On Track
-                </div>
-
-                <div class="project-position-kpi-value">
-                    {on_track}
-                </div>
-
-            </div>
-
-
-            <!-- DELAYED -->
-
-            <div class="project-position-kpi warning">
-
-                <div class="project-position-kpi-label">
-                    Delayed
-                </div>
-
-                <div class="project-position-kpi-value">
-                    {delayed}
-                </div>
-
-            </div>
-
-
-            <!-- AT RISK -->
-
-            <div class="project-position-kpi critical">
-
-                <div class="project-position-kpi-label">
-                    At Risk
-                </div>
-
-                <div class="project-position-kpi-value">
-                    {at_risk}
-                </div>
-
-            </div>
-
-
-            <!-- NEXT 7 DAYS -->
-
-            <div class="project-position-kpi forecast">
-
-                <div class="project-position-kpi-label">
-                    Next 7 Days
-                </div>
-
-                <div class="project-position-kpi-value">
-                    {next_7_days}
-                </div>
-
-            </div>
-
-
-        </div>
-        """,
-        unsafe_allow_html=True,
+        "### PROJECT POSITION"
     )
+
+    st.caption(
+        "Ferry PS  ·  Where are we?"
+    )
+
+    # =====================================================
+    # KPI ROW
+    # =====================================================
+
+    col1, col2, col3, col4, col5, col6 = st.columns(6)
+
+    with col1:
+
+        st.metric(
+            label="Overall Status",
+            value=overall_status
+        )
+
+    with col2:
+
+        st.metric(
+            label="Total Deliverables",
+            value=total_deliverables
+        )
+
+    with col3:
+
+        st.metric(
+            label="On Track",
+            value=on_track
+        )
+
+    with col4:
+
+        st.metric(
+            label="Delayed",
+            value=delayed
+        )
+
+    with col5:
+
+        st.metric(
+            label="At Risk",
+            value=at_risk
+        )
+
+    with col6:
+
+        st.metric(
+            label="Next 7 Days",
+            value=next_7_days
+        )
 
 
 # =========================================================
@@ -400,7 +321,6 @@ def calculate_status(row):
         completion = 0
 
     if completion >= 100:
-
         return "On Track"
 
     # =====================================================
@@ -415,9 +335,7 @@ def calculate_status(row):
 
         else:
 
-            total_float = float(
-                total_float
-            )
+            total_float = float(total_float)
 
     except (
         TypeError,
@@ -427,17 +345,16 @@ def calculate_status(row):
         total_float = None
 
     # =====================================================
-    # PAST FINISH DATE
+    # PAST FINISH
     # =====================================================
 
     if pd.notna(finish):
 
         if finish < today:
-
             return "Delayed"
 
     # =====================================================
-    # FINISH DATE MOVEMENT
+    # FINISH MOVEMENT
     # =====================================================
 
     if (
@@ -449,40 +366,31 @@ def calculate_status(row):
             finish - baseline
         ).days
 
-        # Finish has moved later.
         if movement > 0:
 
-            # No float information.
             if total_float is None:
-
                 return "At Risk"
 
-            # No remaining float.
             if total_float <= 0:
-
                 return "Delayed"
 
-            # Very limited float.
             if total_float <= 5:
-
                 return "At Risk"
 
     # =====================================================
-    # LOW / NEGATIVE FLOAT
+    # FLOAT POSITION
     # =====================================================
 
     if total_float is not None:
 
         if total_float < 0:
-
             return "Delayed"
 
         if total_float <= 5:
-
             return "At Risk"
 
     # =====================================================
-    # FINISHING WITHIN NEXT 7 DAYS
+    # NEXT 7 DAYS
     # =====================================================
 
     if pd.notna(finish):
@@ -500,7 +408,6 @@ def calculate_status(row):
             if total_float is not None:
 
                 if total_float <= 5:
-
                     return "At Risk"
 
     # =====================================================
@@ -517,7 +424,6 @@ def calculate_status(row):
 def count_next_7_days(df):
 
     if "Finish" not in df.columns:
-
         return 0
 
     today = pd.Timestamp.today().normalize()
@@ -546,36 +452,13 @@ def count_next_7_days(df):
 
 def calculate_overall_status(
     delayed,
-    at_risk,
+    at_risk
 ):
 
     if delayed > 0:
-
         return "Delayed"
 
     if at_risk > 0:
-
         return "At Risk"
 
     return "On Track"
-
-
-# =========================================================
-# STATUS CSS CLASS
-# =========================================================
-
-def get_status_class(status):
-
-    if status == "On Track":
-
-        return "healthy"
-
-    if status == "At Risk":
-
-        return "warning"
-
-    if status == "Delayed":
-
-        return "critical"
-
-    return "neutral"
