@@ -62,12 +62,16 @@ def render_project_position_ferry():
         return
 
     # =====================================================
-    # REMOVE RETIRED ACTIVITIES
+    # CHECK ACTIVITY ID
     # =====================================================
 
     if "Activity ID" not in current.columns:
         st.error("CL32 data does not contain Activity ID.")
         return
+
+    # =====================================================
+    # REMOVE RETIRED ACTIVITIES
+    # =====================================================
 
     activity_id = (
         current["Activity ID"]
@@ -84,11 +88,12 @@ def render_project_position_ferry():
     # IDENTIFY FORMAL DELIVERABLES
     # =====================================================
     #
-    # Formal deliverables use:
+    # Formal Ferry deliverables use:
     #
     # FER-XXX-0000
     #
     # Examples:
+    #
     # FER-CIV-1040
     # FER-MEC-1000
     # FER-PRO-1010
@@ -124,7 +129,7 @@ def render_project_position_ferry():
         return
 
     # =====================================================
-    # CLEAN NUMERIC DATA
+    # CLEAN % COMPLETE
     # =====================================================
 
     if "Activity % Complete" in deliverables.columns:
@@ -138,6 +143,10 @@ def render_project_position_ferry():
 
         deliverables["Activity % Complete"] = 0
 
+    # =====================================================
+    # CLEAN TOTAL FLOAT
+    # =====================================================
+
     if "Total Float" in deliverables.columns:
 
         deliverables["Total Float"] = pd.to_numeric(
@@ -150,7 +159,7 @@ def render_project_position_ferry():
         deliverables["Total Float"] = pd.NA
 
     # =====================================================
-    # CLEAN DATES
+    # CLEAN FINISH DATE
     # =====================================================
 
     if "Finish" in deliverables.columns:
@@ -163,6 +172,10 @@ def render_project_position_ferry():
     else:
 
         deliverables["Finish"] = pd.NaT
+
+    # =====================================================
+    # CLEAN BASELINE FINISH DATE
+    # =====================================================
 
     if "BL1 Finish" in deliverables.columns:
 
@@ -185,7 +198,7 @@ def render_project_position_ferry():
     )
 
     # =====================================================
-    # PROJECT POSITION KPIs
+    # CALCULATE KPI VALUES
     # =====================================================
 
     total_deliverables = len(deliverables)
@@ -218,14 +231,14 @@ def render_project_position_ferry():
     )
 
     # =====================================================
-    # UNIT HEADER
+    # UNIT HEADER + KPI CARDS
     # =====================================================
 
     st.markdown(
-        """
+        f"""
         <div class="overview-unit-header">
 
-            <div>
+            <div class="overview-unit-header-left">
 
                 <div class="overview-unit-kicker">
                     PROJECT POSITION
@@ -242,65 +255,105 @@ def render_project_position_ferry():
             </div>
 
         </div>
+
+
+        <div class="project-position-kpi-row">
+
+
+            <!-- OVERALL STATUS -->
+
+            <div class="project-position-kpi {get_status_class(overall_status)}">
+
+                <div class="project-position-kpi-label">
+                    Overall Status
+                </div>
+
+                <div class="project-position-kpi-value">
+                    {overall_status}
+                </div>
+
+            </div>
+
+
+            <!-- TOTAL DELIVERABLES -->
+
+            <div class="project-position-kpi neutral">
+
+                <div class="project-position-kpi-label">
+                    Total Deliverables
+                </div>
+
+                <div class="project-position-kpi-value">
+                    {total_deliverables}
+                </div>
+
+            </div>
+
+
+            <!-- ON TRACK -->
+
+            <div class="project-position-kpi healthy">
+
+                <div class="project-position-kpi-label">
+                    On Track
+                </div>
+
+                <div class="project-position-kpi-value">
+                    {on_track}
+                </div>
+
+            </div>
+
+
+            <!-- DELAYED -->
+
+            <div class="project-position-kpi warning">
+
+                <div class="project-position-kpi-label">
+                    Delayed
+                </div>
+
+                <div class="project-position-kpi-value">
+                    {delayed}
+                </div>
+
+            </div>
+
+
+            <!-- AT RISK -->
+
+            <div class="project-position-kpi critical">
+
+                <div class="project-position-kpi-label">
+                    At Risk
+                </div>
+
+                <div class="project-position-kpi-value">
+                    {at_risk}
+                </div>
+
+            </div>
+
+
+            <!-- NEXT 7 DAYS -->
+
+            <div class="project-position-kpi forecast">
+
+                <div class="project-position-kpi-label">
+                    Next 7 Days
+                </div>
+
+                <div class="project-position-kpi-value">
+                    {next_7_days}
+                </div>
+
+            </div>
+
+
+        </div>
         """,
         unsafe_allow_html=True,
     )
-
-    # =====================================================
-    # KPI CARDS
-    # =====================================================
-
-    col1, col2, col3, col4, col5, col6 = st.columns(6)
-
-    with col1:
-
-        render_kpi(
-            label="Overall Status",
-            value=overall_status,
-            card_class=get_status_class(
-                overall_status
-            ),
-        )
-
-    with col2:
-
-        render_kpi(
-            label="Total Deliverables",
-            value=total_deliverables,
-            card_class="neutral",
-        )
-
-    with col3:
-
-        render_kpi(
-            label="On Track",
-            value=on_track,
-            card_class="healthy",
-        )
-
-    with col4:
-
-        render_kpi(
-            label="Delayed",
-            value=delayed,
-            card_class="warning",
-        )
-
-    with col5:
-
-        render_kpi(
-            label="At Risk",
-            value=at_risk,
-            card_class="critical",
-        )
-
-    with col6:
-
-        render_kpi(
-            label="Next 7 Days",
-            value=next_7_days,
-            card_class="forecast",
-        )
 
 
 # =========================================================
@@ -374,7 +427,7 @@ def calculate_status(row):
         total_float = None
 
     # =====================================================
-    # PAST CURRENT FINISH DATE
+    # PAST FINISH DATE
     # =====================================================
 
     if pd.notna(finish):
@@ -399,7 +452,7 @@ def calculate_status(row):
         # Finish has moved later.
         if movement > 0:
 
-            # No float available.
+            # No float information.
             if total_float is None:
 
                 return "At Risk"
@@ -429,7 +482,7 @@ def calculate_status(row):
             return "At Risk"
 
     # =====================================================
-    # UPCOMING FINISH
+    # FINISHING WITHIN NEXT 7 DAYS
     # =====================================================
 
     if pd.notna(finish):
@@ -526,31 +579,3 @@ def get_status_class(status):
         return "critical"
 
     return "neutral"
-
-
-# =========================================================
-# KPI CARD
-# =========================================================
-
-def render_kpi(
-    label,
-    value,
-    card_class,
-):
-
-    st.markdown(
-        f"""
-        <div class="project-position-kpi {card_class}">
-
-            <div class="project-position-kpi-label">
-                {label}
-            </div>
-
-            <div class="project-position-kpi-value">
-                {value}
-            </div>
-
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
