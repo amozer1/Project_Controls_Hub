@@ -2,6 +2,7 @@ import streamlit as st
 from pathlib import Path
 
 from components.sidebar import render_sidebar
+from views.overview import render_overview
 
 
 # =========================================================
