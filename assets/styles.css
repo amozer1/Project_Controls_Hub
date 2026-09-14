@@ -5,6 +5,7 @@
 /* Sidebar overall spacing */
 section[data-testid="stSidebar"] {
     padding-top: 0.5rem;
+    background-color: #061A2F;
 }
 
 
@@ -22,6 +23,7 @@ section[data-testid="stSidebar"] div[data-testid="stButton"] {
 section[data-testid="stSidebar"] div[data-testid="stButton"] button {
     justify-content: flex-start !important;
     text-align: left !important;
+    background-color: #0A2342 !important;
 }
 
 
@@ -45,6 +47,7 @@ section[data-testid="stSidebar"] div[data-testid="stButton"] button p {
 
 section[data-testid="stSidebar"] div[data-testid="stExpander"] {
     margin-bottom: 0.25rem;
+    background-color: #0A2342;
 }
 
 
