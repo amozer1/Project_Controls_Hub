@@ -2,14 +2,28 @@
    PROJECT CONTROLS HUB - SIDEBAR
    ========================================================== */
 
-/* Sidebar overall spacing */
+/* ----------------------------------------------------------
+   SIDEBAR - LIGHT NAVY
+   ---------------------------------------------------------- */
+
 section[data-testid="stSidebar"] {
     padding-top: 0.5rem;
+    background-color: #163A5F !important;
 }
 
 
 /* ----------------------------------------------------------
-   Sidebar buttons
+   ALL SIDEBAR TEXT - WHITE
+   ---------------------------------------------------------- */
+
+section[data-testid="stSidebar"],
+section[data-testid="stSidebar"] * {
+    color: #FFFFFF !important;
+}
+
+
+/* ----------------------------------------------------------
+   SIDEBAR BUTTONS
    ---------------------------------------------------------- */
 
 section[data-testid="stSidebar"] div[data-testid="stButton"] {
@@ -18,65 +32,76 @@ section[data-testid="stSidebar"] div[data-testid="stButton"] {
 }
 
 
-/* Left-align all button content */
+/* Keep buttons light navy */
 section[data-testid="stSidebar"] div[data-testid="stButton"] button {
+    background-color: #163A5F !important;
+    color: #FFFFFF !important;
     justify-content: flex-start !important;
     text-align: left !important;
 }
 
 
-/* Left-align the actual button text */
+/* Button text */
 section[data-testid="stSidebar"] div[data-testid="stButton"] button > div {
     justify-content: flex-start !important;
     width: 100%;
+    color: #FFFFFF !important;
 }
 
 
-/* Keep button text compact */
 section[data-testid="stSidebar"] div[data-testid="stButton"] button p {
     text-align: left !important;
     margin: 0;
+    color: #FFFFFF !important;
 }
 
 
 /* ----------------------------------------------------------
-   Framework expanders
+   FRAMEWORK EXPANDERS
    ---------------------------------------------------------- */
 
 section[data-testid="stSidebar"] div[data-testid="stExpander"] {
     margin-bottom: 0.25rem;
+    background-color: #163A5F !important;
+    color: #FFFFFF !important;
 }
 
 
-/* Compact expander header */
+/* Expander header */
 section[data-testid="stSidebar"] div[data-testid="stExpander"] summary {
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
+    background-color: #163A5F !important;
+    color: #FFFFFF !important;
 }
 
 
-/* Compact expander contents */
+/* Expander contents */
 section[data-testid="stSidebar"] div[data-testid="stExpanderDetails"] {
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
+    background-color: #163A5F !important;
+    color: #FFFFFF !important;
 }
 
 
 /* ----------------------------------------------------------
-   Sidebar captions / section headings
+   SIDEBAR CAPTIONS / SECTION HEADINGS
    ---------------------------------------------------------- */
 
 section[data-testid="stSidebar"] .stCaption {
     margin-top: 0.15rem;
     margin-bottom: 0.25rem;
+    color: #FFFFFF !important;
 }
 
 
 /* ----------------------------------------------------------
-   Dividers
+   DIVIDERS
    ---------------------------------------------------------- */
 
 section[data-testid="stSidebar"] hr {
     margin-top: 0.45rem;
     margin-bottom: 0.45rem;
+    border-color: #527596 !important;
 }
